@@ -10,7 +10,15 @@
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
+    "pug": "^3.0.2",
     "svelte": "^4.0.5",
+    "svelte-preprocess": "^5.0.4",
     "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "@catppuccin/palette": "^0.2.0",
+    "bootstrap-icons": "^1.10.5",
+    "jquery": "^3.7.1",
+    "sass": "^1.66.1"
   }
 }
