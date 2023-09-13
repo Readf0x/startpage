@@ -2,11 +2,13 @@
   import Time from "./lib/Time.svelte";
   import Weather from './lib/Weather.svelte';
   import ThemeSwitch from "./lib/ThemeSwitch.svelte";
+  import Search from "./lib/Search.svelte";
 </script>
 
 <template lang="pug">
   .center
     Time
+    Search
 
   Weather
 

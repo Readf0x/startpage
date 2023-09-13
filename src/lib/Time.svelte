@@ -41,6 +41,7 @@
     font-variant: all-small-caps;
     letter-spacing: 12px;
     margin: 10px;
+    transition: 0.4s;
   }
   .date {
     font-family: Noto Sans;

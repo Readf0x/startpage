@@ -25,5 +25,16 @@ body {
     .date {
       color: map.get($light, "subtext0");
     }
+    .search {
+      & > * {
+        background: map.get($light, "mantle") !important;
+      }
+      .search-box input {
+        color: map.get($light, "text") !important;
+        &::placeholder {
+          color: map.get($light, "subtext0") !important;
+        }
+      }
+    }
   }
 }
