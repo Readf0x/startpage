@@ -31,7 +31,8 @@
 </template>
 
 <style lang="scss">
-  @import "@catppuccin/palette/scss/_mocha.scss";
+  @use "sass:map";
+  @import "../boiler.scss";
 
   .time {
     font-variant-numeric: oldstyle-nums tabular-nums;
@@ -39,11 +40,12 @@
     font-size: 70px;
     font-variant: all-small-caps;
     letter-spacing: 12px;
+    margin: 10px;
   }
   .date {
     font-family: Noto Sans;
     font-size: 15px;
     letter-spacing: 4.5px;
-    color: $subtext0;
+    color: map.get($dark, "subtext0");
   }
 </style>

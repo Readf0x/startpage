@@ -1,6 +1,7 @@
 <script>
   import Time from "./lib/Time.svelte";
   import Weather from './lib/Weather.svelte';
+  import ThemeSwitch from "./lib/ThemeSwitch.svelte";
 </script>
 
 <template lang="pug">
@@ -8,10 +9,13 @@
     Time
 
   Weather
+
+  ThemeSwitch
 </template>
 
 <style lang="scss">
-  @import "@catppuccin/palette/scss/_mocha.scss";
+  @use "sass:map";
+  @import "./boiler.scss";
 
   .center {
     position: absolute;
