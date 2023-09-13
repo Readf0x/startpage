@@ -37,7 +37,7 @@
   .time {
     font-variant-numeric: oldstyle-nums tabular-nums;
     font-family: Noto Serif;
-    font-size: 70px;
+    font-size: 4.5vw;
     font-variant: all-small-caps;
     letter-spacing: 12px;
     margin: 10px;
