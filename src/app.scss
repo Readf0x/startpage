@@ -64,7 +64,7 @@ body {
       border-color: map.get($light, 'text') !important;
     }
     .weather i.bi {
-      color: map.get($light, "base");
+      color: map.get($light, "crust");
       -webkit-text-stroke: 1px map.get($light, "text");
     }
   }

@@ -1,12 +1,13 @@
 <script>
   import jquery from "jquery";
   import { onMount } from "svelte";
+  // const { setTimeout } = require('timers/promises');
 
-  let checked;
+  $: checked = window.matchMedia('(prefers-color-scheme: light)').matches;
 
   function themeMatch() {
-    // @ts-ignore
-    if (!checked) {
+    console.log(checked);
+    if (checked) {
       document.body.classList.add("light");
     } else {
       document.body.classList.remove("light");
@@ -14,33 +15,14 @@
   }
 
   onMount(() => {
-    window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => {
-      if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-        // @ts-ignore
-        document.querySelector("input[name=theme]").checked = true;
-        document.body.classList.add("light");
-      } else {
-        // @ts-ignore
-        document.querySelector("input[name=theme]").checked = false;
-        document.body.classList.remove("light");
-      }
-    })
-    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-      // @ts-ignore
-      document.querySelector("input[name=theme]").checked = true;
-      document.body.classList.add("light");
-    } else {
-      // @ts-ignore
-      document.querySelector("input[name=theme]").checked = false;
-      document.body.classList.remove("light");
-    }
+    themeMatch();
   })
 </script>
 
 <template lang="pug">
   label.switch
-    input(type="checkbox", name="theme" on:click="{themeMatch}" bind:checked="{checked}")
-    span.slider.round
+    input(type="checkbox", name="theme" bind:checked="{checked}" on:change="{themeMatch}")
+    span.slider
       i.bi.bi-moon-stars
       i.bi.bi-sun
 </template>
@@ -92,6 +74,9 @@
     background-color: map.get($dark, "mantle");
     -webkit-transition: .4s;
     transition: .4s;
+    border-radius: 34px;
+    display: flex;
+    align-items: center;
     &:before {
       position: absolute;
       content: "";
@@ -100,12 +85,20 @@
       background-color: map.get($dark, "surface0");
       -webkit-transition: .4s;
       transition: .4s;
+      border-radius: 50%;
     }
     .bi {
       position: relative;
       font-size: 20px;
-      top: 4px;
       transition: 0.4s;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      &:before {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+      }
       &-moon-stars {
         left: 6px;
         color: map.get($dark, "text");
@@ -113,13 +106,6 @@
       &-sun {
         left: 23px;
         color: map.get($dark, "surface1");
-      }
-    }
-    /* Rounded sliders */
-    &.round {
-      border-radius: 34px;
-      &:before {
-        border-radius: 50%;
       }
     }
   }
