@@ -2,9 +2,11 @@
   import jquery from "jquery";
   import { onMount } from "svelte";
 
+  let checked;
+
   function themeMatch() {
     // @ts-ignore
-    if (document.querySelector("input[name=theme]").checked) {
+    if (!checked) {
       document.body.classList.add("light");
     } else {
       document.body.classList.remove("light");
@@ -23,12 +25,21 @@
         document.body.classList.remove("light");
       }
     })
+    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      // @ts-ignore
+      document.querySelector("input[name=theme]").checked = true;
+      document.body.classList.add("light");
+    } else {
+      // @ts-ignore
+      document.querySelector("input[name=theme]").checked = false;
+      document.body.classList.remove("light");
+    }
   })
 </script>
 
 <template lang="pug">
   label.switch
-    input(type="checkbox", name="theme" on:click="{themeMatch}")
+    input(type="checkbox", name="theme" on:click="{themeMatch}" bind:checked="{checked}")
     span.slider.round
       i.bi.bi-moon-stars
       i.bi.bi-sun
@@ -57,6 +68,7 @@
           -ms-transform: translateX(36px);
           transform: translateX(36px);
           background: map.get($light, "surface0");
+          outline: 1px solid map.get($light, "text");
         }
         .bi {
           &-moon-stars {
@@ -92,7 +104,7 @@
     .bi {
       position: relative;
       font-size: 20px;
-      top: 3px;
+      top: 4px;
       transition: 0.4s;
       &-moon-stars {
         left: 6px;

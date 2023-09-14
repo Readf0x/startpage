@@ -1,8 +1,10 @@
-@use "sass:map";
-@import "./boiler.scss";
+@use 'sass:map';
+@import './boiler.scss';
 
-$sans: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-$serif: 'Noto Serif', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+$sans: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+$serif: 'Noto Serif', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
 :root {
   font-family: $sans;
@@ -15,26 +17,55 @@ $serif: 'Noto Serif', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 
 }
 
 body {
-  background: map.get($dark, "base");
-  color: map.get($dark, "text");
+  background: map.get($dark, 'base');
+  color: map.get($dark, 'text');
   margin: 0;
   transition: 0.4s;
+  ::selection {
+    background: map.get($light, 'base');
+    color: map.get($light, 'text');
+  }
+  .time::selection {
+    color: map.get($light, "base");
+    -webkit-text-stroke: 2px map.get($light, "overlay2");
+    background: #eff1f6;
+  }
   &.light {
-    background: map.get($light, "base");
-    color: map.get($light, "text");
+    background: map.get($light, 'base');
+    color: map.get($light, 'text');
+    ::selection {
+      background: map.get($dark, 'base');
+      color: map.get($dark, 'text');
+    }
+    .time {
+      color: map.get($light, "crust");
+      -webkit-text-stroke: 1px map.get($light, "text");
+      &::selection {
+        -webkit-text-stroke: 0;
+      }
+    }
     .date {
-      color: map.get($light, "subtext0");
+      color: map.get($light, 'subtext0');
     }
     .search {
       & > * {
-        background: map.get($light, "mantle") !important;
+        background: map.get($light, 'mantle') !important;
+        border-color: map.get($light, "text") !important;
       }
       .search-box input {
-        color: map.get($light, "text") !important;
+        color: map.get($light, 'text') !important;
         &::placeholder {
-          color: map.get($light, "subtext0") !important;
+          color: map.get($light, 'subtext0') !important;
         }
       }
+    }
+    .dropdown-menu {
+      background: map.get($light, 'mantle') !important;
+      border-color: map.get($light, 'text') !important;
+    }
+    .weather i.bi {
+      color: map.get($light, "base");
+      -webkit-text-stroke: 1px map.get($light, "text");
     }
   }
 }

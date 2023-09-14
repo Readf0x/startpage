@@ -39,9 +39,10 @@
     font-family: Noto Serif;
     font-size: 4.5vw;
     font-variant: all-small-caps;
-    letter-spacing: 12px;
+    letter-spacing: 1.5vw;
     margin: 10px;
     transition: 0.4s;
+    font-weight: 400;
   }
   .date {
     font-family: Noto Sans;
