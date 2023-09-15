@@ -26,9 +26,12 @@ body {
     color: map.get($light, 'text');
   }
   .time::selection {
-    color: map.get($light, "base");
-    -webkit-text-stroke: 2px map.get($light, "overlay2");
+    color: map.get($light, 'crust');
+    -webkit-text-stroke: 2px map.get($light, 'overlay2');
     background: #eff1f6;
+  }
+  button {
+    color: inherit;
   }
   &.light {
     background: map.get($light, 'base');
@@ -38,8 +41,8 @@ body {
       color: map.get($dark, 'text');
     }
     .time {
-      color: map.get($light, "crust");
-      -webkit-text-stroke: 1px map.get($light, "text");
+      color: map.get($light, 'crust');
+      -webkit-text-stroke: 1px map.get($light, 'text');
       &::selection {
         -webkit-text-stroke: 0;
       }
@@ -50,7 +53,7 @@ body {
     .search {
       & > * {
         background: map.get($light, 'mantle') !important;
-        border-color: map.get($light, "text") !important;
+        border-color: map.get($light, 'text') !important;
       }
       .search-box input {
         color: map.get($light, 'text') !important;
@@ -58,14 +61,14 @@ body {
           color: map.get($light, 'subtext0') !important;
         }
       }
-    }
-    .dropdown-menu {
-      background: map.get($light, 'mantle') !important;
-      border-color: map.get($light, 'text') !important;
+      .provider-icon,
+      .submit {
+        color: map.get($light, 'text') !important;
+      }
     }
     .weather i.bi {
-      color: map.get($light, "crust");
-      -webkit-text-stroke: 1px map.get($light, "text");
+      color: map.get($light, 'crust');
+      -webkit-text-stroke: 1px map.get($light, 'text');
     }
   }
 }

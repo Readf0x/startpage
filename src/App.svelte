@@ -3,6 +3,7 @@
   import Weather from './lib/Weather.svelte';
   import ThemeSwitch from "./lib/ThemeSwitch.svelte";
   import Search from "./lib/Search.svelte";
+  import Shortcut from "./lib/Shortcut.svelte";
 </script>
 
 <template lang="pug">
@@ -13,6 +14,8 @@
   Weather
 
   ThemeSwitch
+
+  Shortcut()
 </template>
 
 <style lang="scss">

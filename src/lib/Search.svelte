@@ -3,41 +3,31 @@
 
   let value;
   let dorp;
-  let dropdown = false;
-  let google = true;
-
-  $: if(dorp) offsetCalculate();
+  let search = 0;
+  let searchURL = ["https://google.com/search?q=", "https://duckduckgo.com/search?q=", "https://bing.com/search?q="];
 
   function submit() {
-    location.href = "https://www.google.com/search?q=" + encodeURIComponent(value)
+    location.href = searchURL[search] + encodeURIComponent(value)
     value = "";
-  }
-
-  // https://stackoverflow.com/questions/55719056/position-an-element-relative-to-another-that-is-not-its-parent
-  function offsetCalculate(){
-    var offset = jquery(".provider-dropdown").offset();
-    jquery(".dropdown-menu").css({
-      "left": offset.left - 80
-    }).focus();
   }
 </script>
 <template lang="pug">
   .search
-    .provider-icon(on:click!="{() => {dropdown = !dropdown}}")
-      +if("google")
-        i.bi.bi-google
-    .provider-dropdown(on:click!="{() => {dropdown = !dropdown}}")
-      i.bi.bi-caret-down-fill(style="font-size: 12px;")
+    .provider-icon
+      +if("search == 0")
+        svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none")
+          use(href="search.svg#google")
+      +if("search == 1")
+        svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none")
+          use(href="search.svg#duck")
+      +if("search == 2")
+        svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none")
+          use(href="search.svg#bing")
     label.search-box
       form(name="search" on:submit|preventDefault="{submit}")
         input(placeholder="Start Typing..." bind:value)
-    .submit(on:click="{submit}")
+    button.submit(on:click="{submit}")
       i.bi.bi-search
-  +if("dropdown")
-    .dropdown-menu(bind:this="{dorp}" on:blur!="{() => {dropdown = !dropdown}}")
-      p#google Google
-      p#duck DuckDuckGo
-      p#bing Bing
 </template>
 
 <style lang="scss">
@@ -58,22 +48,14 @@
       align-items: center;
       transition: 0.4s;
       border: 1px solid map.get($dark, "mantle");
+      box-sizing: content-box;
+      outline: none;
     }
     .provider-icon {
       padding: 0 4px 0 8px;
       border-radius: 30px 4px 4px 30px;
       cursor: pointer;
-    }
-    .provider-dropdown {
-      width: 12px;
-      display: flex;
-      justify-content: center;
-      appearance: none;
-      color: inherit;
-      cursor: pointer;
-      &:active {
-        color: map.get($dark, "subtext0");
-      }
+      color: map.get($dark, "text");
     }
     .search-box {
       width: 100%;
@@ -103,6 +85,7 @@
       padding: 0 8px 0 4px;
       border-radius: 4px 30px 30px 4px;
       cursor: pointer;
+      color: map.get($dark, "text");
     }
     i.bi {
       font-size: 18px;
@@ -118,25 +101,5 @@
     align-items: flex-start;
     gap: 2px;
     flex-shrink: 0;
-  }
-
-  .dropdown-menu {
-    width: fit-content;
-    padding: 1px 15px;
-    border-radius: 20px;
-    text-align: left;
-    line-height: 0.8;
-    background: map.get($dark, "mantle");
-    border: 1px solid map.get($dark, "overlay0");
-    position: absolute;
-    transition: 0.4s;
-    top: 170px;
-    p {
-      transition: 0.4s;
-      cursor: pointer;
-      &:hover {
-        color: map.get($dark, "subtext0");
-      }
-    }
   }
 </style>

@@ -1,112 +1,53 @@
 <script>
-  import jquery from "jquery";
   import { onMount } from "svelte";
-  // const { setTimeout } = require('timers/promises');
 
-  $: checked = window.matchMedia('(prefers-color-scheme: light)').matches;
-
-  function themeMatch() {
-    console.log(checked);
-    if (checked) {
-      document.body.classList.add("light");
-    } else {
-      document.body.classList.remove("light");
-    }
-  }
+  let localTime = new Date();
+  let api;
+  $: time = Intl.DateTimeFormat("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  }).format(localTime);
+  $: date = Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "2-digit",
+    year: "numeric"
+  }).format(localTime);
 
   onMount(() => {
-    themeMatch();
+    const interval = setInterval(() => {
+      localTime = new Date();
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    }
   })
 </script>
 
 <template lang="pug">
-  label.switch
-    input(type="checkbox", name="theme" bind:checked="{checked}" on:change="{themeMatch}")
-    span.slider
-      i.bi.bi-moon-stars
-      i.bi.bi-sun
+  p.time {time}
+  p.date {date}
 </template>
 
 <style lang="scss">
   @use "sass:map";
   @import "../boiler.scss";
 
-  /* The switch - the box around the slider */
-  .switch {
-    margin: 15px;
-    position: relative;
-    width: 70px;
-    height: 34px;
-    float: right;
-    /* Hide default HTML checkbox */
-    input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-      &:checked + .slider {
-        background-color: map.get($light, "mantle");
-        &:before {
-          -webkit-transform: translateX(36px);
-          -ms-transform: translateX(36px);
-          transform: translateX(36px);
-          background: map.get($light, "surface0");
-          outline: 1px solid map.get($light, "text");
-        }
-        .bi {
-          &-moon-stars {
-            color: map.get($light, "surface1");
-          }
-          &-sun {
-            color: map.get($light, "text");
-          }
-        }
-      }
-    }
+  .time {
+    font-variant-numeric: oldstyle-nums tabular-nums;
+    font-family: Noto Serif;
+    font-size: 4.5vw;
+    font-variant: all-small-caps;
+    letter-spacing: 1.5vw;
+    margin: 10px;
+    transition: 0.4s;
+    font-weight: 400;
   }
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: map.get($dark, "mantle");
-    -webkit-transition: .4s;
-    transition: .4s;
-    border-radius: 34px;
-    display: flex;
-    align-items: center;
-    &:before {
-      position: absolute;
-      content: "";
-      height: 34px;
-      width: 34px;
-      background-color: map.get($dark, "surface0");
-      -webkit-transition: .4s;
-      transition: .4s;
-      border-radius: 50%;
-    }
-    .bi {
-      position: relative;
-      font-size: 20px;
-      transition: 0.4s;
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
-      &:before {
-        width: 20px;
-        height: 20px;
-        line-height: 20px;
-      }
-      &-moon-stars {
-        left: 6px;
-        color: map.get($dark, "text");
-      }
-      &-sun {
-        left: 23px;
-        color: map.get($dark, "surface1");
-      }
-    }
+  .date {
+    font-family: Noto Sans;
+    font-size: 15px;
+    letter-spacing: 4.5px;
+    color: map.get($dark, "subtext0");
   }
 </style>
