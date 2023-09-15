@@ -30,14 +30,15 @@
       link: "https://x.com",
       type: "char",
       icon: "&Xopf;"
-    },
+    }
   ];
+  let dropdown;
 </script>
 
 <template lang="pug">
   .center
     Time
-    Search
+    Search(bind:dropdown)
     .shortcut-list
       +each("shortcuts as shortcut")
         Shortcut(
@@ -49,6 +50,8 @@
   Weather
 
   ThemeSwitch
+
+  p {dropdown}
 </template>
 
 <style lang="scss">
@@ -73,5 +76,6 @@
     gap: 20px;
     max-width: 66vw;
     width: fit-content;
+    flex-wrap: wrap;
   }
 </style>

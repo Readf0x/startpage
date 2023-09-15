@@ -1,10 +1,10 @@
 <script>
   import jquery from "jquery";
 
-  export let dropdown;
+  export let dropdown = false;
 
   let value;
-  let search = 0;
+  let search = 2;
   let searchURL = ["https://google.com/search?q=", "https://duckduckgo.com/search?q=", "https://bing.com/search?q="];
 
   function submit() {
@@ -24,7 +24,7 @@
       +if("search == 2")
         svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none")
           use(href="search.svg#bing")
-    button.dropdown-button(on:click!="{dropdown = !dropdown}")
+    button.dropdown-button(on:click!="{() => {dropdown = !dropdown}}")
       i.bi.bi-caret-down-fill
     label.search-box
       form(name="search" on:submit|preventDefault="{submit}")
