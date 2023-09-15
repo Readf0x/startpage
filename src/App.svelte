@@ -4,6 +4,24 @@
   import ThemeSwitch from "./lib/ThemeSwitch.svelte";
   import Search from "./lib/Search.svelte";
   import Shortcut from "./lib/Shortcut.svelte";
+
+  let shortcuts = [
+    {
+      link: "https://github.com",
+      type: "font",
+      icon: "github"
+    },
+    {
+      link: "https://youtube.com",
+      type: "font",
+      icon: "youtube"
+    },
+    {
+      link: "wiki.hyprland.org",
+      type: "img",
+      icon: "favicon-32x32.png"
+    }
+  ];
 </script>
 
 <template lang="pug">
@@ -11,10 +29,12 @@
     Time
     Search
     .shortcut-list
-      Shortcut(link="https://github.com/" iconName="github")
-      Shortcut(link="https://youtube.com" iconName="youtube")
-      Shortcut(link="https://twitch.tv" iconName="twitch")
-      Shortcut(link="https://wiki.hyprland.org" iconName="favicon-32x32.png" icon="img")
+      +each("shortcuts as shortcut")
+        Shortcut(
+          link="{shortcut.link}"
+          type="{shortcut.type}"
+          icon="{shortcut.icon}"
+        )
 
   Weather
 
@@ -32,11 +52,16 @@
     transform: translate(-50%, -50%);
     width: 100%;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .shortcut-list {
     margin-top: 15px;
     display: flex;
     justify-content: center;
     gap: 20px;
+    max-width: 66vw;
+    width: fit-content;
   }
 </style>

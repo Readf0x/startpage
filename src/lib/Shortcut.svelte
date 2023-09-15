@@ -1,16 +1,16 @@
 <script>
-  export let icon = "font";
-  export let iconName = "bi-link-45deg";
+  export let type = "font";
+  export let icon = "bi-link-45deg";
   export let link = "about:blank";
 </script>
   
 <template lang="pug">
   a(href="{link}")
     .shortcut
-      +if("icon == 'font'")
-        i.bi(class="bi-{iconName}")
-      +if("icon == 'img'")
-        img(src="{iconName}" height="22" width="22")
+      +if("type == 'font'")
+        i.bi(class="bi-{icon}")
+      +if("type == 'img'")
+        img(src="{icon}" height="22" width="22")
 </template>
   
 <style lang="scss">
