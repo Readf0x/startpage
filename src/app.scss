@@ -70,5 +70,12 @@ body {
       color: map.get($light, 'crust');
       -webkit-text-stroke: 1px map.get($light, 'text');
     }
+    .shortcut {
+      background: map.get($light, "mantle") !important;
+      border: 1px solid map.get($light, "text");
+      i {
+        color: map.get($light, "text") !important;
+      }
+    }
   }
 }

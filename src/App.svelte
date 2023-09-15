@@ -10,12 +10,15 @@
   .center
     Time
     Search
+    .shortcut-list
+      Shortcut(link="https://github.com/" iconName="github")
+      Shortcut(link="https://youtube.com" iconName="youtube")
+      Shortcut(link="https://twitch.tv" iconName="twitch")
+      Shortcut(link="https://wiki.hyprland.org" iconName="favicon-32x32.png" icon="img")
 
   Weather
 
   ThemeSwitch
-
-  Shortcut
 </template>
 
 <style lang="scss">
@@ -29,5 +32,11 @@
     transform: translate(-50%, -50%);
     width: 100%;
     text-align: center;
+  }
+  .shortcut-list {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
   }
 </style>

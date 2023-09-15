@@ -5,18 +5,34 @@
 </script>
   
 <template lang="pug">
-  a.shortcut(href="{link}")
-    +if("icon == 'font'")
-      i.bi(class="{iconName}")
-    +if("icon == 'img'")
-      img(src="{iconName}")
+  a(href="{link}")
+    .shortcut
+      +if("icon == 'font'")
+        i.bi(class="bi-{iconName}")
+      +if("icon == 'img'")
+        img(src="{iconName}" height="22" width="22")
 </template>
   
 <style lang="scss">
   @use "sass:map";
   @import "../boiler.scss";
 
-  a.shortcut {
+  .shortcut {
+    display: flex;
+    i {
+      align-self: center;
+      color: map.get($dark, "text");
+    }
+    font-size: 22px;
+    background: map.get($dark, "mantle");
+    padding: 10px;
+    border-radius: 50px;
+    width: 22px;
+    height: 22px;
+    transition: 0.4s;
+    border: 1px solid map.get($dark, "mantle");
+  }
+  a {
     text-decoration: none;
     color: inherit;
     &:hover {
@@ -25,11 +41,5 @@
     &:visited {
       color: inherit;
     }
-    font-size: 22px;
-    background: map.get($dark, "mantle");
-    padding: 10px;
-    border-radius: 50px;
-    width: 22px;
-    height: 22px;
   }
 </style>

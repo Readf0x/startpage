@@ -6,7 +6,6 @@
   $: checked = window.matchMedia('(prefers-color-scheme: light)').matches;
 
   function themeMatch() {
-    console.log(checked);
     if (checked) {
       document.body.classList.add("light");
     } else {
