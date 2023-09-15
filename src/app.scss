@@ -65,16 +65,28 @@ body {
       .submit {
         color: map.get($light, 'text') !important;
       }
+      .dropdown-button {
+        color: map.get($light, 'text') !important;
+        &:hover {
+          cursor: pointer;
+          color: map.get($light, 'subtext0') !important;
+        }
+      }
     }
     .weather i.bi {
       color: map.get($light, 'crust');
       -webkit-text-stroke: 1px map.get($light, 'text');
     }
     .shortcut {
-      background: map.get($light, "mantle") !important;
-      border: 1px solid map.get($light, "text");
-      i {
-        color: map.get($light, "text") !important;
+      background: map.get($light, 'mantle') !important;
+      border: 1px solid map.get($light, 'text') !important;
+      i,
+      .char {
+        color: map.get($light, 'text') !important;
+      }
+      img {
+        filter: brightness(0) saturate(100%) invert(33%) sepia(10%)
+          saturate(1170%) hue-rotate(196deg) brightness(90%) contrast(94%) !important;
       }
     }
   }
