@@ -12,15 +12,25 @@
       icon: "github"
     },
     {
+      link: "https://wiki.hyprland.org",
+      type: "img",
+      icon: "https://wiki.hyprland.org/favicon/favicon-32x32.png"
+    },
+    {
+      link: "https://wiki.archlinux.org",
+      type: "img",
+      icon: "https://archlinux.org/static/favicon.29302f683ff8.ico"
+    },
+    {
       link: "https://youtube.com",
       type: "font",
       icon: "youtube"
     },
     {
-      link: "wiki.hyprland.org",
-      type: "img",
-      icon: "favicon-32x32.png"
-    }
+      link: "https://x.com",
+      type: "char",
+      icon: "&Xopf;"
+    },
   ];
 </script>
 

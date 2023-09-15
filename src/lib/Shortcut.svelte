@@ -2,6 +2,11 @@
   export let type = "font";
   export let icon = "bi-link-45deg";
   export let link = "about:blank";
+
+  function checkChar(char) {
+    if(new RegExp("&(#(\d{1,}|x[0-9a-fA-F]{1,})|[a-zA-Z]{1,});").test(char)) return char;
+    else return char.substring(0, 1);
+  }
 </script>
   
 <template lang="pug">
@@ -10,7 +15,9 @@
       +if("type == 'font'")
         i.bi(class="bi-{icon}")
       +if("type == 'img'")
-        img(src="{icon}" height="22" width="22")
+        img(src="{icon}" alt="link to {link}")
+      +if("type == 'char'")
+        span.char {@html checkChar(icon)}
 </template>
   
 <style lang="scss">
@@ -19,9 +26,16 @@
 
   .shortcut {
     display: flex;
-    i {
-      align-self: center;
+    i, .char {
       color: map.get($dark, "text");
+    }
+    img {
+      object-fit: scale-down;
+      max-width: 22px;
+      filter: brightness(0) saturate(100%) invert(88%) sepia(4%) saturate(2257%) hue-rotate(194deg) brightness(97%) contrast(98%);
+    }
+    .char {
+      font-family: initial;
     }
     font-size: 22px;
     background: map.get($dark, "mantle");
@@ -31,6 +45,9 @@
     height: 22px;
     transition: 0.4s;
     border: 1px solid map.get($dark, "mantle");
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
   }
   a {
     text-decoration: none;
