@@ -15,7 +15,7 @@
 
   ThemeSwitch
 
-  Shortcut()
+  Shortcut
 </template>
 
 <style lang="scss">
