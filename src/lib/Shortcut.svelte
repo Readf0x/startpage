@@ -7,6 +7,11 @@
     if(new RegExp("&(#(\d{1,}|x[0-9a-fA-F]{1,})|[a-zA-Z]{1,});").test(char)) return char;
     else return char.substring(0, 1);
   }
+
+  function autoIcon() {
+    if(icon == "auto" && type == "img") return "https://s2.googleusercontent.com/s2/favicons?domain_url=" + link
+    else return icon
+  }
 </script>
   
 <template lang="pug">
@@ -15,7 +20,7 @@
       +if("type == 'font'")
         i.bi(class="bi-{icon}")
       +if("type == 'img'")
-        img(src="{icon}" alt="link to {link}")
+        img(src="{autoIcon()}" alt="link to {link}")
       +if("type == 'char'")
         span.char {@html checkChar(icon)}
 </template>
@@ -30,8 +35,8 @@
       color: map.get($dark, "text");
     }
     img {
-      object-fit: scale-down;
-      max-width: 22px;
+      // object-fit: scale-down;
+      width: 22px;
       filter: brightness(0) saturate(100%) invert(88%) sepia(4%) saturate(2257%) hue-rotate(194deg) brightness(97%) contrast(98%);
     }
     .char {

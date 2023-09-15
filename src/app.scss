@@ -65,6 +65,13 @@ body {
       .submit {
         color: map.get($light, 'text') !important;
       }
+      .dropdown-button {
+        color: map.get($light, 'text') !important;
+        &:hover {
+          cursor: pointer;
+          color: map.get($light, 'subtext0') !important;
+        }
+      }
     }
     .weather i.bi {
       color: map.get($light, 'crust');
@@ -72,7 +79,7 @@ body {
     }
     .shortcut {
       background: map.get($light, 'mantle') !important;
-      border: 1px solid map.get($light, 'text');
+      border: 1px solid map.get($light, 'text') !important;
       i,
       .char {
         color: map.get($light, 'text') !important;

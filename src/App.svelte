@@ -14,12 +14,12 @@
     {
       link: "https://wiki.hyprland.org",
       type: "img",
-      icon: "https://wiki.hyprland.org/favicon/favicon-32x32.png"
+      icon: "auto"
     },
     {
       link: "https://wiki.archlinux.org",
       type: "img",
-      icon: "https://archlinux.org/static/favicon.29302f683ff8.ico"
+      icon: "auto"
     },
     {
       link: "https://youtube.com",
