@@ -3,13 +3,15 @@
   import { onMount } from "svelte";
   // const { setTimeout } = require('timers/promises');
 
-  $: checked = window.matchMedia('(prefers-color-scheme: light)').matches;
+  $: checked = localStorage.getItem("theme") != null ? localStorage.getItem("theme") == "true" : window.matchMedia('(prefers-color-scheme: light)').matches;
 
   function themeMatch() {
     if (checked) {
       document.body.classList.add("light");
+      localStorage.setItem("theme", true);
     } else {
       document.body.classList.remove("light");
+      localStorage.setItem("theme", false);
     }
   }
 

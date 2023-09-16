@@ -4,6 +4,7 @@
   import ThemeSwitch from "./lib/ThemeSwitch.svelte";
   import Search from "./lib/Search.svelte";
   import Shortcut from "./lib/Shortcut.svelte";
+  import Dropdown from "./lib/Dropdown.svelte";
 
   let shortcuts = [
     {
@@ -14,12 +15,12 @@
     {
       link: "https://wiki.hyprland.org",
       type: "img",
-      icon: "auto"
+      icon: "https://hyprland.org/ico/favicon-32x32.png"
     },
     {
       link: "https://wiki.archlinux.org",
       type: "img",
-      icon: "auto"
+      icon: "https://wiki.installgentoo.com/images/f/f9/Arch-linux-logo.png"
     },
     {
       link: "https://youtube.com",
@@ -51,7 +52,7 @@
 
   ThemeSwitch
 
-  p {dropdown}
+  Dropdown(dropdown="{dropdown}")
 </template>
 
 <style lang="scss">
