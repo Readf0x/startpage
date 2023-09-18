@@ -26,14 +26,18 @@
   .dropdown-menu {
     list-style: none;
     background: map.get($dark, "mantle");
+    border: 1px solid map.get($dark, "mantle");
     padding: 10px 15px;
     border-radius: 20px;
-    display: none;
+    transform: translateY(-110%);
     position: absolute;
     margin-top: 6px;
+    margin-left: 1px;
     transition: 0.4s;
+    z-index: 2;
     &.enabled {
-      display: inline-block;
+      animation: slideDown 0.4s ease-in-out;
+      transform: translateY(0%);
     }
     .dropdown-item {
       border: none;
@@ -42,6 +46,7 @@
       cursor: pointer;
       width: 100%;
       text-align: left;
+      color: map.get($dark, "text");
       &:hover {
         color: map.get($dark, "subtext0");
       }
@@ -49,6 +54,15 @@
         position: relative;
         top: 2px;
       }
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-110%);
+    }
+    to {
+      transform: translateY(0%);
     }
   }
 </style>

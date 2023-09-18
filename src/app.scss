@@ -1,10 +1,10 @@
-@use 'sass:map';
-@import './boiler.scss';
+@use "sass:map";
+@import "./boiler.scss";
 
-$sans: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-  Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-$serif: 'Noto Serif', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-  Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+$sans: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+$serif: "Noto Serif", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
 :root {
   font-family: $sans;
@@ -17,72 +17,76 @@ $serif: 'Noto Serif', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
 }
 
 body {
-  background: map.get($dark, 'base') !important;
-  color: map.get($dark, 'text');
+  background: map.get($dark, "base") !important;
+  color: map.get($dark, "text");
   margin: 0;
   transition: 0.4s;
   ::selection {
-    background: map.get($light, 'base');
-    color: map.get($light, 'text');
+    background: map.get($light, "base");
+    color: map.get($light, "text");
   }
   .time::selection {
-    color: map.get($light, 'crust');
-    -webkit-text-stroke: 2px map.get($light, 'overlay2');
+    color: map.get($light, "crust");
+    -webkit-text-stroke: 2px map.get($light, "overlay2");
     background: #eff1f6;
   }
   button {
     color: inherit;
   }
   &.light {
-    background: map.get($light, 'base') !important;
-    color: map.get($light, 'text');
+    background: map.get($light, "base") !important;
+    color: map.get($light, "text");
     ::selection {
-      background: map.get($dark, 'base');
-      color: map.get($dark, 'text');
+      background: map.get($dark, "base");
+      color: map.get($dark, "text");
     }
     .time {
-      color: map.get($light, 'crust');
-      -webkit-text-stroke: 1px map.get($light, 'text');
+      color: map.get($light, "crust");
+      -webkit-text-stroke: 1px map.get($light, "text");
       &::selection {
         -webkit-text-stroke: 0;
       }
     }
     .date {
-      color: map.get($light, 'subtext0');
+      color: map.get($light, "subtext0") !important;
+    }
+    .above-search {
+      background: map.get($light, "base") !important;
     }
     .search {
       & > * {
-        background: map.get($light, 'mantle') !important;
-        border-color: map.get($light, 'text') !important;
+        background: map.get($light, "mantle") !important;
+        border-color: map.get($light, "text") !important;
       }
       .search-box input {
-        color: map.get($light, 'text') !important;
+        color: map.get($light, "text") !important;
         &::placeholder {
-          color: map.get($light, 'subtext0') !important;
+          color: map.get($light, "subtext0") !important;
         }
       }
       .provider-icon,
       .submit {
-        color: map.get($light, 'text') !important;
+        color: map.get($light, "text") !important;
       }
       .dropdown-button {
-        color: map.get($light, 'text') !important;
+        color: map.get($light, "text") !important;
         &:hover {
           cursor: pointer;
-          color: map.get($light, 'subtext0') !important;
+          color: map.get($light, "subtext0") !important;
         }
       }
     }
     .weather i.bi {
-      color: map.get($light, 'crust');
-      -webkit-text-stroke: 1px map.get($light, 'text');
+      color: map.get($light, "crust");
+      -webkit-text-stroke: 1px map.get($light, "text");
     }
-    .shortcut {
-      background: map.get($light, 'mantle') !important;
-      border: 1px solid map.get($light, 'text') !important;
+    .shortcut,
+    .add-shortcut {
+      background: map.get($light, "mantle") !important;
+      border: 1px solid map.get($light, "text") !important;
       i,
       .char {
-        color: map.get($light, 'text') !important;
+        color: map.get($light, "text") !important;
       }
       img {
         filter: brightness(0) saturate(100%) invert(33%) sepia(10%)
@@ -90,8 +94,14 @@ body {
       }
     }
     .dropdown-menu {
-      background: map.get($light, 'mantle') !important;
-      outline: 1px solid map.get($light, 'text');
+      background: map.get($light, "mantle") !important;
+      border: 1px solid map.get($light, "text") !important;
+      .dropdown-item {
+        color: map.get($light, "text") !important;
+        &:hover {
+          color: map.get($light, "subtext0") !important;
+        }
+      }
     }
   }
 }

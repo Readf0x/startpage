@@ -6,48 +6,26 @@
   import Shortcut from "./lib/Shortcut.svelte";
   import Dropdown from "./lib/Dropdown.svelte";
   import { onMount } from "svelte";
+  import { defaultShortcuts } from "./lib/default";
 
-  let shortcuts = [
-    {
-      link: "https://github.com",
-      type: "font",
-      icon: "github"
-    },
-    {
-      link: "https://wiki.hyprland.org",
-      type: "img",
-      icon: "https://hyprland.org/ico/favicon-32x32.png"
-    },
-    {
-      link: "https://wiki.archlinux.org",
-      type: "img",
-      icon: "https://wiki.installgentoo.com/images/f/f9/Arch-linux-logo.png"
-    },
-    {
-      link: "https://youtube.com",
-      type: "font",
-      icon: "youtube"
-    },
-    {
-      link: "https://x.com",
-      type: "char",
-      icon: "&Xopf;"
-    }
-  ];
+  let shortcuts = localStorage.getItem("shortcuts") != null ? JSON.parse(localStorage.getItem("shortcuts")) : defaultShortcuts();
   let dropdown;
   let search = 0;
   let offset;
   const items = [["google", "Google", "https://google.com/search?q="], ["duck", "DuckDuckGo", "https://duckduckgo.com/search?q="], ["bing", "Bing", "https://bing.com/search?q="]];
 
   onMount(() => {
+    // @ts-ignore
     search = localStorage.getItem("search") != null ? localStorage.getItem("search") : 0;
+    localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
   });
 </script>
 
 <template lang="pug">
   .center
-    Time
-    Search(bind:dropdown bind:search items="{items}")
+    .above-search
+      Time
+      Search(bind:dropdown bind:search items="{items}")
     .beneath-search
       Dropdown(bind:search bind:dropdown items="{items}")
       .shortcut-list
@@ -57,6 +35,8 @@
             type="{shortcut.type}"
             icon="{shortcut.icon}"
           )
+        button.add-shortcut
+          i.bi.bi-plus
 
   Weather
 
@@ -77,6 +57,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    .above-search {
+      background: map.get($dark, "base");
+      z-index: 3;
+      transition: 0.4s;
+      // width: 100vw;
+    }
     .beneath-search {
       display: flex;
       align-self: start;
@@ -91,5 +77,18 @@
     max-width: 66vw;
     width: 100%;
     flex-wrap: wrap;
+  }
+  .add-shortcut {
+    background: map.get($dark, "mantle");
+    color: map.get($dark, "text");
+    transition: 0.4s;
+    border: 1px solid map.get($dark, "mantle");
+    font: inherit;
+    font-size: 22px;
+    height: 44px;
+    width: 44px;
+    border-radius: 50px;
+    cursor: pointer;
+    outline: inherit;
   }
 </style>

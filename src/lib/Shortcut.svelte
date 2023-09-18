@@ -15,14 +15,17 @@
 </script>
   
 <template lang="pug">
-  a(href="{link}")
-    .shortcut
-      +if("type == 'font'")
-        i.bi(class="bi-{icon}")
-      +if("type == 'img'")
-        img(src="{autoIcon()}" alt="link to {link}")
-      +if("type == 'char'")
-        span.char {@html checkChar(icon)}
+  .shortcut-wrapper
+    a(href="{link}")
+      .shortcut
+        +if("type == 'font'")
+          i.bi(class="bi-{icon}")
+        +if("type == 'img'")
+          img(src="{autoIcon()}" alt="link to {link}")
+        +if("type == 'char'")
+          span.char {@html checkChar(icon)}
+    button.remove
+      i.bi.bi-x
 </template>
   
 <style lang="scss">
@@ -35,7 +38,6 @@
       color: map.get($dark, "text");
     }
     img {
-      // object-fit: scale-down;
       width: 22px;
       filter: brightness(0) saturate(100%) invert(88%) sepia(4%) saturate(2257%) hue-rotate(194deg) brightness(97%) contrast(98%);
     }
@@ -62,6 +64,38 @@
     }
     &:visited {
       color: inherit;
+    }
+  }
+  .remove {
+    background: none;
+    color: transparent;
+    border: none;
+    font: inherit;
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+    border-radius: 50px;
+    cursor: pointer;
+    outline: inherit;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    margin-left: 30px;
+    margin-top: -8px;
+    transition: 0.4s;
+    i:before {
+      line-height: 22px !important;
+      width: 22px;
+      height: 22px;
+    }
+  }
+  .shortcut-wrapper {
+    display: flex;
+    &:hover .remove {
+      background: map.get($dark, "overlay0");
+      color: map.get($dark, "text");
     }
   }
 </style>

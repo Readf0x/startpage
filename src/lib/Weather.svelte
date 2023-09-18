@@ -13,7 +13,7 @@
     if(new Date().toISOString().slice(0, 10) != localStorage.getItem("expiry")) {
       console.log("API out of date, requesting...")
       // @ts-ignore
-      jquery.getJSON("https://api.open-meteo.com/v1/forecast?latitude=34.9554&longitude=-90.0348&hourly=temperature_2m,weathercode&temperature_unit=fahrenheit&timezone=auto", (json) => {
+      jquery.getJSON("https://api.open-meteo.com/v1/forecast?latitude=34.9554&longitude=-90.0348&hourly=temperature_2m,weathercode&temperature_unit=fahrenheit&timezone=auto&forecast_days=1", (json) => {
         localStorage.setItem("api", JSON.stringify(json));
         localStorage.setItem("expiry", new Date().toISOString().slice(0, 10));
       });
@@ -66,22 +66,6 @@
       clearInterval(interval);
     }
   });
-
-  // if(!api.error) {
-  //   jquery(".temp").text(api.hourly.temperature_2m[new Date().getHours()] + api.hourly_units.temperature_2m);
-  //   jquery(".cond").text(wmo(api.hourly.weathercode[new Date().getHours()])[0]);
-  //   jquery(".weather i").removeClass (function (index, className) {
-  //     return (className.match (/(^|\s)bi-\S+/g) || []).join(' ');
-  //   });
-  //   jquery(".weather i").addClass (wmo(api.hourly.weathercode[new Date().getHours()])[1]);
-  // } else {
-  //   jquery(".temp").text("error")
-  //   jquery(".cond").text("Error Loading!")
-  //   jquery(".weather i").removeClass (function (index, className) {
-  //     return (className.match (/(^|\s)bi-\S+/g) || []).join(' ');
-  //   });
-  //   jquery(".weather i").addClass ('bi-x-lg');
-  // }
 </script>
 
 <template lang="pug">

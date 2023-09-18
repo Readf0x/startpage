@@ -43,6 +43,7 @@
     margin: 10px;
     transition: 0.4s;
     font-weight: 400;
+    color: map.get($dark, "text");
   }
   .date {
     font-family: Noto Sans;
