@@ -1,11 +1,17 @@
 <script>
   import { onMount } from "svelte";
   import jquery from "jquery";
+  import { defaultApi } from "./default";
 
-  let api;
+  $: api = defaultApi();
+  $: icon = wmo(api.hourly.weathercode[new Date().getHours()])[1];
+  $: temp = api.hourly.temperature_2m[new Date().getHours()] + api.hourly_units.temperature_2m;
+  $: cond = wmo(api.hourly.weathercode[new Date().getHours()])[0];
 
-  onMount(() => {
+  function getApi() {
+    console.assert(new Date().toISOString().slice(0, 10) == localStorage.getItem("expiry"), new Date().toISOString().slice(0, 10), localStorage.getItem("expiry"));
     if(new Date().toISOString().slice(0, 10) != localStorage.getItem("expiry")) {
+      console.log("API out of date, requesting...")
       // @ts-ignore
       jquery.getJSON("https://api.open-meteo.com/v1/forecast?latitude=34.9554&longitude=-90.0348&hourly=temperature_2m,weathercode&temperature_unit=fahrenheit&timezone=auto", (json) => {
         localStorage.setItem("api", JSON.stringify(json));
@@ -13,68 +19,77 @@
       });
     };
 
-    api = JSON.parse(localStorage.getItem("api"));
+    return JSON.parse(localStorage.getItem("api"));
+  };
+
+  function wmo(x) {
+    return ({
+      0: ["Clear Sky", "sun"],
+      1: ["Mainly Clear", "sun"],
+      2: ["Partly Cloudy", "cloud-sun"],
+      3: ["Overcast", "clouds"],
+      45: ["Fog", "cloud-fog"],
+      48: ["Fog", "cloud-fog"],
+      51: ["Light Drizzle", "cloud-drizzle"],
+      53: ["Moderate Drizzle", "cloud-drizzle"],
+      55: ["Dense Drizzle", "cloud-drizzle"],
+      56: ["Light Freezing Drizzle", "cloud-sleet"],
+      57: ["Dense Freezing Drizzle", "cloud-sleet"],
+      61: ["Slight Rain", "cloud-rain"],
+      63: ["Moderate Rain", "cloud-rain"],
+      65: ["Heavy Rain", "cloud-rain"],
+      66: ["Light Freezing Rain", "cloud-sleet"],
+      67: ["Heavy Freezing Rain", "cloud-sleet"],
+      71: ["Slight Snowfall", "cloud-snow"],
+      73: ["Moderate Snowfall", "cloud-snow"],
+      75: ["Heavy Snowfall", "cloud-snow"],
+      77: ["Snow Grains", "cloud-snow"],
+      80: ["Slight Rain Shower", "cloud-rain-heavy"],
+      81: ["Moderate Rain Shower", "cloud-rain-heavy"],
+      82: ["Violent Rain Shower", "cloud-rain-heavy"],
+      85: ["Slight Snow Shower", "cloud-snow"],
+      86: ["Heavy Snow Shower", "cloud-snow"],
+      95: ["Light Thunderstorm", "cloud-lightning-rain"],
+      96: ["Heavy Thunderstorm", "cloud-lightning-rain"],
+    })[x];
+  };
+
+  onMount(() => {
+    api = getApi();
+    console.log("api var update");
+    const interval = setInterval(() => {
+      api = getApi();
+      console.log("api var update");
+    }, 60000);
+
+    return () => {
+      clearInterval(interval);
+    }
   });
 
-  jquery(setInterval(function(){
-    function wmo(x) {
-      return ({
-        0: ["Clear Sky", "bi-sun"],
-        1: ["Mainly Clear", "bi-sun"],
-        2: ["Partly Cloudy", "bi-cloud-sun"],
-        3: ["Overcast", "bi-clouds"],
-        45: ["Fog", "bi-cloud-fog"],
-        48: ["Fog", "bi-cloud-fog"],
-        51: ["Light Drizzle", "bi-cloud-drizzle"],
-        53: ["Moderate Drizzle", "bi-cloud-drizzle"],
-        55: ["Dense Drizzle", "bi-cloud-drizzle"],
-        56: ["Light Freezing Drizzle", "bi-cloud-sleet"],
-        57: ["Dense Freezing Drizzle", "bi-cloud-sleet"],
-        61: ["Slight Rain", "bi-cloud-rain"],
-        63: ["Moderate Rain", "bi-cloud-rain"],
-        65: ["Heavy Rain", "bi-cloud-rain"],
-        66: ["Light Freezing Rain", "bi-cloud-sleet"],
-        67: ["Heavy Freezing Rain", "bi-cloud-sleet"],
-        71: ["Slight Snowfall", "bi-cloud-snow"],
-        73: ["Moderate Snowfall", "bi-cloud-snow"],
-        75: ["Heavy Snowfall", "bi-cloud-snow"],
-        77: ["Snow Grains", "bi-cloud-snow"],
-        80: ["Slight Rain Shower", "bi-cloud-rain-heavy"],
-        81: ["Moderate Rain Shower", "bi-cloud-rain-heavy"],
-        82: ["Violent Rain Shower", "bi-cloud-rain-heavy"],
-        85: ["Slight Snow Shower", "bi-cloud-snow"],
-        86: ["Heavy Snow Shower", "bi-cloud-snow"],
-        95: ["Light Thunderstorm", "bi-cloud-lightning-rain"],
-        96: ["Heavy Thunderstorm", "bi-cloud-lightning-rain"],
-      })[x];
-    }
-    jquery(".test").text(api.error);
-    if(!api.error) {
-      jquery(".temp").text(
-          api.hourly.temperature_2m[new Date().getHours()] +
-          api.hourly_units.temperature_2m);
-      jquery(".cond").text(wmo(api.hourly.weathercode[new Date().getHours()])[0]);
-      jquery(".weather i").removeClass (function (index, className) {
-        return (className.match (/(^|\s)bi-\S+/g) || []).join(' ');
-      });
-      jquery(".weather i").addClass (wmo(api.hourly.weathercode[new Date().getHours()])[1]);
-    } else {
-      jquery(".temp").text("error")
-      jquery(".cond").text("Error Loading!")
-      jquery(".weather i").removeClass (function (index, className) {
-        return (className.match (/(^|\s)bi-\S+/g) || []).join(' ');
-      });
-      jquery(".weather i").addClass ('bi-x-lg');
-    }
-  }));
+  // if(!api.error) {
+  //   jquery(".temp").text(api.hourly.temperature_2m[new Date().getHours()] + api.hourly_units.temperature_2m);
+  //   jquery(".cond").text(wmo(api.hourly.weathercode[new Date().getHours()])[0]);
+  //   jquery(".weather i").removeClass (function (index, className) {
+  //     return (className.match (/(^|\s)bi-\S+/g) || []).join(' ');
+  //   });
+  //   jquery(".weather i").addClass (wmo(api.hourly.weathercode[new Date().getHours()])[1]);
+  // } else {
+  //   jquery(".temp").text("error")
+  //   jquery(".cond").text("Error Loading!")
+  //   jquery(".weather i").removeClass (function (index, className) {
+  //     return (className.match (/(^|\s)bi-\S+/g) || []).join(' ');
+  //   });
+  //   jquery(".weather i").addClass ('bi-x-lg');
+  // }
 </script>
 
 <template lang="pug">
   .weather
     .top
-      i.bi.bi-sun
-      span.temp 78.7°F
-    span.cond Mainly Clear
+      i.bi(class="bi-{icon}")
+      span.temp {temp}
+    span.cond {cond}
 </template>
 
 <style lang="scss">
