@@ -34,12 +34,13 @@
     }
   ];
   let dropdown;
+  let search;
 </script>
 
 <template lang="pug">
   .center
     Time
-    Search(bind:dropdown)
+    Search(bind:dropdown search="{search}")
     .shortcut-list
       +each("shortcuts as shortcut")
         Shortcut(
@@ -52,7 +53,7 @@
 
   ThemeSwitch
 
-  Dropdown(dropdown="{dropdown}")
+  Dropdown(bind:search dropdown="{dropdown}")
 </template>
 
 <style lang="scss">

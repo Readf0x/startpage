@@ -2,9 +2,9 @@
   import jquery from "jquery";
 
   export let dropdown = false;
+  export let search;
 
   let value;
-  let search = 0;
   let searchURL = ["https://google.com/search?q=", "https://duckduckgo.com/search?q=", "https://bing.com/search?q="];
 
   function submit() {
@@ -15,14 +15,12 @@
 <template lang="pug">
   .search
     .provider-icon
-      svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none")
+      svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" style:display="{search == 0 ? 'initial' : 'none'}")
         use(href="search.svg#google")
-      //- +if("search == 1")
-      //-   svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none")
-      //-     use(href="search.svg#duck")
-      //- +if("search == 2")
-      //-   svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none")
-      //-     use(href="search.svg#bing")
+      svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" style:display="{search == 1 ? 'initial' : 'none'}")
+        use(href="search.svg#duck")
+      svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" style:display="{search == 2 ? 'initial' : 'none'}")
+        use(href="search.svg#bing")
     button.dropdown-button(on:click!="{() => {dropdown = !dropdown}}")
       i.bi.bi-caret-down-fill
     label.search-box
