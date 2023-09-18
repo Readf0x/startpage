@@ -17,7 +17,7 @@ $serif: 'Noto Serif', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
 }
 
 body {
-  background: map.get($dark, 'base');
+  background: map.get($dark, 'base') !important;
   color: map.get($dark, 'text');
   margin: 0;
   transition: 0.4s;
@@ -34,7 +34,7 @@ body {
     color: inherit;
   }
   &.light {
-    background: map.get($light, 'base');
+    background: map.get($light, 'base') !important;
     color: map.get($light, 'text');
     ::selection {
       background: map.get($dark, 'base');

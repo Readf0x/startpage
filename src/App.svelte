@@ -5,6 +5,7 @@
   import Search from "./lib/Search.svelte";
   import Shortcut from "./lib/Shortcut.svelte";
   import Dropdown from "./lib/Dropdown.svelte";
+  import { onMount } from "svelte";
 
   let shortcuts = [
     {
@@ -34,26 +35,32 @@
     }
   ];
   let dropdown;
-  let search;
+  let search = 0;
+  let offset;
+  const items = [["google", "Google", "https://google.com/search?q="], ["duck", "DuckDuckGo", "https://duckduckgo.com/search?q="], ["bing", "Bing", "https://bing.com/search?q="]];
+
+  onMount(() => {
+    search = localStorage.getItem("search") != null ? localStorage.getItem("search") : 0;
+  });
 </script>
 
 <template lang="pug">
   .center
     Time
-    Search(bind:dropdown search="{search}")
-    .shortcut-list
-      +each("shortcuts as shortcut")
-        Shortcut(
-          link="{shortcut.link}"
-          type="{shortcut.type}"
-          icon="{shortcut.icon}"
-        )
+    Search(bind:dropdown bind:search items="{items}")
+    .beneath-search
+      Dropdown(bind:search bind:dropdown items="{items}")
+      .shortcut-list
+        +each("shortcuts as shortcut")
+          Shortcut(
+            link="{shortcut.link}"
+            type="{shortcut.type}"
+            icon="{shortcut.icon}"
+          )
 
   Weather
 
   ThemeSwitch
-
-  Dropdown(bind:search dropdown="{dropdown}")
 </template>
 
 <style lang="scss">
@@ -65,11 +72,16 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
+    width: fit-content;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    .beneath-search {
+      display: flex;
+      align-self: start;
+      width: 100%;
+    }
   }
   .shortcut-list {
     margin-top: 15px;
@@ -77,7 +89,7 @@
     justify-content: center;
     gap: 20px;
     max-width: 66vw;
-    width: fit-content;
+    width: 100%;
     flex-wrap: wrap;
   }
 </style>

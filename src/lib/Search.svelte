@@ -1,26 +1,25 @@
 <script>
+  import { afterUpdate } from 'svelte';
   import jquery from "jquery";
 
   export let dropdown = false;
   export let search;
+  export let items;
 
   let value;
-  let searchURL = ["https://google.com/search?q=", "https://duckduckgo.com/search?q=", "https://bing.com/search?q="];
+  let searchURL = [];
 
   function submit() {
-    location.href = searchURL[search] + encodeURIComponent(value);
+    location.href = items[search][2] + encodeURIComponent(value);
     value = "";
   }
 </script>
 <template lang="pug">
   .search
-    .provider-icon
-      svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" style:display="{search == 0 ? 'initial' : 'none'}")
-        use(href="search.svg#google")
-      svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" style:display="{search == 1 ? 'initial' : 'none'}")
-        use(href="search.svg#duck")
-      svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" style:display="{search == 2 ? 'initial' : 'none'}")
-        use(href="search.svg#bing")
+    button.provider-icon(on:click!="{() => {dropdown = !dropdown}}")
+      +each("items as item, i")
+        svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" style:display="{search == i ? 'initial' : 'none'}")
+          use(href="search.svg#{item[0]}")
     button.dropdown-button(on:click!="{() => {dropdown = !dropdown}}")
       i.bi.bi-caret-down-fill
     label.search-box
