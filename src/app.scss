@@ -89,5 +89,9 @@ body {
           saturate(1170%) hue-rotate(196deg) brightness(90%) contrast(94%) !important;
       }
     }
+    .dropdown-menu {
+      background: map.get($light, 'mantle') !important;
+      outline: 1px solid map.get($light, 'text');
+    }
   }
 }

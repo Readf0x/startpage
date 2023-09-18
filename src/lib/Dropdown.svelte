@@ -27,11 +27,11 @@
     list-style: none;
     background: map.get($dark, "mantle");
     padding: 10px 15px;
-    // border: 1px solid map.get($dark, "overlay2");
     border-radius: 20px;
     display: none;
     position: absolute;
-    margin-top: 5px;
+    margin-top: 6px;
+    transition: 0.4s;
     &.enabled {
       display: inline-block;
     }
