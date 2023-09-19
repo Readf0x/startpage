@@ -1,7 +1,12 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+
   export let type = "font";
-  export let icon = "bi-link-45deg";
+  export let icon = "link-45deg";
   export let link = "about:blank";
+  export let id = -1;
+  let self;
 
   function checkChar(char) {
     if(new RegExp("&(#(\d{1,}|x[0-9a-fA-F]{1,})|[a-zA-Z]{1,});").test(char)) return char;
@@ -15,7 +20,7 @@
 </script>
   
 <template lang="pug">
-  .shortcut-wrapper
+  .shortcut-wrapper(bind:this="{self}")
     a(href="{link}")
       .shortcut
         +if("type == 'font'")
@@ -24,7 +29,7 @@
           img(src="{autoIcon()}" alt="link to {link}")
         +if("type == 'char'")
           span.char {@html checkChar(icon)}
-    button.remove
+    button.remove(on:click!="{() => dispatch('remove', id)}")
       i.bi.bi-x
 </template>
   

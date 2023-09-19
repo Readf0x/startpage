@@ -8,9 +8,11 @@
   function themeMatch() {
     if (checked) {
       document.body.classList.add("light");
+      // @ts-ignore
       localStorage.setItem("theme", true);
     } else {
       document.body.classList.remove("light");
+      // @ts-ignore
       localStorage.setItem("theme", false);
     }
   }

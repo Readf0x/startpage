@@ -5,19 +5,38 @@
   import Search from "./lib/Search.svelte";
   import Shortcut from "./lib/Shortcut.svelte";
   import Dropdown from "./lib/Dropdown.svelte";
+  import Modal from "./lib/Modal.svelte";
   import { onMount } from "svelte";
   import { defaultShortcuts } from "./lib/default";
 
-  let shortcuts = localStorage.getItem("shortcuts") != null ? JSON.parse(localStorage.getItem("shortcuts")) : defaultShortcuts();
+  let shortcuts = [];
   let dropdown;
+  let modal = false;
   let search = 0;
   let offset;
-  const items = [["google", "Google", "https://google.com/search?q="], ["duck", "DuckDuckGo", "https://duckduckgo.com/search?q="], ["bing", "Bing", "https://bing.com/search?q="]];
+  const searchItems = [["google", "Google", "https://google.com/search?q="], ["duck", "DuckDuckGo", "https://duckduckgo.com/search?q="], ["bing", "Bing", "https://bing.com/search?q="]];
+
+  function shortcutRemoveHandler(ev) {
+    shortcuts = shortcuts.toSpliced(ev.detail, 1);
+    localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
+  };
+
+  function shortcutAddHandler(ev) {
+    console.log(ev.detail);
+    modal = !modal;
+    shortcuts.push({
+      "link": ev.detail[2],
+      "icon": ev.detail[1],
+      "type": ev.detail[0]
+    });
+    shortcuts = shortcuts;
+    localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
+  }
 
   onMount(() => {
     // @ts-ignore
     search = localStorage.getItem("search") != null ? localStorage.getItem("search") : 0;
-    localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
+    shortcuts = localStorage.getItem("shortcuts") != null ? JSON.parse(localStorage.getItem("shortcuts")) : defaultShortcuts();
   });
 </script>
 
@@ -25,22 +44,27 @@
   .center
     .above-search
       Time
-      Search(bind:dropdown bind:search items="{items}")
+      Search(bind:dropdown bind:search items="{searchItems}")
     .beneath-search
-      Dropdown(bind:search bind:dropdown items="{items}")
+      Dropdown(bind:dropdown bind:search items="{searchItems}")
       .shortcut-list
-        +each("shortcuts as shortcut")
+        +each("shortcuts as shortcut, i")
           Shortcut(
             link="{shortcut.link}"
             type="{shortcut.type}"
             icon="{shortcut.icon}"
+            id="{i}"
+            on:remove="{shortcutRemoveHandler}"
           )
-        button.add-shortcut
+        button.add-shortcut(on:click!="{() => modal = !modal}")
           i.bi.bi-plus
 
   Weather
 
   ThemeSwitch
+
+  +if("modal")
+    Modal(on:submit="{shortcutAddHandler}")
 </template>
 
 <style lang="scss">
