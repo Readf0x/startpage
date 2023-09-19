@@ -24,7 +24,8 @@
       p.info Should be #[code auto] or a link to an image
     +if("type == 'char'")
       p.info Should be a single character or an html symbol
-    button(on:click!="{() => dispatch('submit', [type, icon, link])}") Add
+    button#add(on:click!="{() => dispatch('submit', [type, icon, link])}") Add
+    button#cancel(on:click!="{() => dispatch('cancel')}") Cancel
 </template>
 
 <style lang="scss">
