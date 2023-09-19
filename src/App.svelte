@@ -16,9 +16,12 @@
   let offset;
   const searchItems = [["google", "Google", "https://google.com/search?q="], ["duck", "DuckDuckGo", "https://duckduckgo.com/search?q="], ["bing", "Bing", "https://bing.com/search?q="]];
 
-  function shortcutRemoveHandler(ev) {
+  async function shortcutRemoveHandler(ev) {
     shortcuts = shortcuts.toSpliced(ev.detail, 1);
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
+    // console.log(shortcuts);
+    // console.log(ev.detail);
+    // shortcuts = JSON.parse(localStorage.getItem("shortcuts"));
   };
 
   function shortcutAddHandler(ev) {
@@ -64,7 +67,7 @@
   ThemeSwitch
 
   +if("modal")
-    Modal(on:submit="{shortcutAddHandler}")
+    Modal(on:submit="{shortcutAddHandler}" on:cancel!="{() => modal = !modal}")
 </template>
 
 <style lang="scss">

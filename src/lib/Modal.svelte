@@ -24,7 +24,7 @@
       p.info Should be #[code auto] or a link to an image
     +if("type == 'char'")
       p.info Should be a single character or an html symbol
-    button#add(on:click!="{() => dispatch('submit', [type, icon, link])}") Add
+    button#submit(on:click!="{() => dispatch('submit', [type, icon, link])}") Add
     button#cancel(on:click!="{() => dispatch('cancel')}") Cancel
 </template>
 
@@ -97,8 +97,10 @@
       box-sizing: content-box;
       padding: 4px 6px;
       border-radius: 5px;
-      float: right;
-      color: map.get($dark, "green");
+      &#submit {
+        float: right;
+        color: map.get($dark, "green");
+      }
       cursor: pointer;
       &:hover {
         background: map.get($dark, "surface0");
