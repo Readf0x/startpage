@@ -14,7 +14,7 @@
   let modal = false;
   let search = 0;
   let offset;
-  const searchItems = [["google", "Google", "https://google.com/search?q="], ["duck", "DuckDuckGo", "https://duckduckgo.com/search?q="], ["bing", "Bing", "https://bing.com/search?q="]];
+  const searchItems = [["google", "Google", "https://google.com/search?q="], ["duck", "DuckDuckGo", "https://duckduckgo.com/?q="], ["bing", "Bing", "https://bing.com/search?q="], ["ask", "Ask", "https://www.ask.com/web?q="]];
 
   async function shortcutRemoveHandler(ev) {
     shortcuts = shortcuts.toSpliced(ev.detail, 1);
