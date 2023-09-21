@@ -19,9 +19,6 @@
   async function shortcutRemoveHandler(ev) {
     shortcuts = shortcuts.toSpliced(ev.detail, 1);
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
-    // console.log(shortcuts);
-    // console.log(ev.detail);
-    // shortcuts = JSON.parse(localStorage.getItem("shortcuts"));
   };
 
   function shortcutAddHandler(ev) {

@@ -88,7 +88,7 @@ body {
       .char {
         color: map.get($light, "text") !important;
       }
-      img {
+      img:not(.nofilter) {
         filter: brightness(0) saturate(100%) invert(33%) sepia(10%)
           saturate(1170%) hue-rotate(196deg) brightness(90%) contrast(94%) !important;
       }
@@ -101,6 +101,27 @@ body {
         &:hover {
           color: map.get($light, "subtext0") !important;
         }
+      }
+    }
+    .modal {
+      background: map.get($light, "base") !important;
+      button, select, input {
+        background: map.get($light, "mantle") !important;
+        color: map.get($light, "text") !important;
+      }
+      button {
+        &#submit {
+          color: map.get($light, "green") !important;
+        }
+        &:hover {
+          background: map.get($light, "overlay0") !important;
+        }
+      }
+      input::placeholder {
+        color: map.get($light, "subtext0") !important;
+      }
+      code {
+        background: map.get($light, "overlay0") !important;
       }
     }
   }

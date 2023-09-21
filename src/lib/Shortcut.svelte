@@ -14,8 +14,13 @@
   }
 
   function autoIcon() {
-    if(icon == "auto" && type == "img") return "https://s2.googleusercontent.com/s2/favicons?domain_url=" + link
-    else return icon
+    if(icon.endsWith('-nofilter')) {
+      if(icon == "auto-nofilter" && type == "img") return "https://s2.googleusercontent.com/s2/favicons?domain_url=" + link
+      else return icon.slice(0, -9)
+    } else {
+      if(icon == "auto" && type == "img") return "https://s2.googleusercontent.com/s2/favicons?domain_url=" + link
+      else return icon
+    };
   }
 </script>
   
@@ -26,7 +31,7 @@
         +if("type == 'font'")
           i.bi(class="bi-{icon}")
         +if("type == 'img'")
-          img(src="{autoIcon()}" alt="link to {link}")
+          img(src="{autoIcon()}" alt="link to {link}" class:nofilter="{icon.endsWith('-nofilter')}")
         +if("type == 'char'")
           span.char {@html checkChar(icon)}
     button.remove(on:click!="{() => dispatch('remove', id)}")
@@ -44,7 +49,9 @@
     }
     img {
       width: 22px;
-      filter: brightness(0) saturate(100%) invert(88%) sepia(4%) saturate(2257%) hue-rotate(194deg) brightness(97%) contrast(98%);
+      &:not(.nofilter) {
+        filter: brightness(0) saturate(100%) invert(88%) sepia(4%) saturate(2257%) hue-rotate(194deg) brightness(97%) contrast(98%);
+      }
     }
     .char {
       font-family: initial;

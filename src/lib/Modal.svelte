@@ -3,8 +3,8 @@
   const dispatch = createEventDispatcher();
 
   export let type = "font";
-  export let icon = "link-45deg";
-  export let link = "https://example.com";
+  export let icon;
+  export let link;
 </script>
 
 <template lang="pug">
