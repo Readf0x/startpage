@@ -26,7 +26,6 @@
     ["bing", "Bing", "https://bing.com/search?q="],
     ["yandex", "Yandex", "https://yandex.com/search/?text="],
     ["yahoo", "Yahoo", "https://search.yahoo.com/search?p="],
-    ["baidu", "Baidu", "https://baidu.com/#wd="],
     ["ask", "Ask.com", "https://www.ask.com/web?q="],
   ];
   $: order = Array.from(Array(shortcuts.length).keys());
@@ -50,7 +49,7 @@
 
   function resetHandler() {
     switch(resetCount) {
-      case 0: resetCount = 1; break;
+      case 0: resetCount = 1; setTimeout(() => resetCount = 0, 5000); break;
       case 1: localStorage.clear(); location.reload(); break;
     };
   };
@@ -65,7 +64,7 @@
         pull: false,
         put: false
       },
-      animation: 200,
+      animation: 400,
       forceFallback: true,
       handle: ".shortcut",
       fallbackClass: "ghost-fallback",
@@ -169,7 +168,8 @@
   }
   button.reset {
     border: none;
-    background: map.get($dark, "overlay0");
+    background: map.get($dark, "surface0");
+    color: map.get($dark, "red");
     position: absolute;
     bottom: 10px;
     right: 10px;
