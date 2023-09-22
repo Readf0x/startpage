@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "ms-vscode.js-debug",
+    "svelte.svelte-vscode",
+    "idered.npm"
+  ]
+}
