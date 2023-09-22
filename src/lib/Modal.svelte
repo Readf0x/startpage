@@ -5,6 +5,10 @@
   export let type = "font";
   export let icon;
   export let link;
+
+  function keyPressHandler(ev) {
+    if(ev.key == "Escape") dispatch("cancel");
+  }
 </script>
 
 <template lang="pug">
@@ -27,6 +31,8 @@
     button#submit(on:click!="{() => dispatch('submit', [type, icon, link])}") Add
     button#cancel(on:click!="{() => dispatch('cancel')}") Cancel
 </template>
+
+<svelte:window on:keydown|preventDefault={keyPressHandler} />
 
 <style lang="scss">
   @use "sass:map";

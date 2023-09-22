@@ -32,7 +32,7 @@
   
   function shortcutAddHandler(ev) {
     console.log(ev.detail);
-    modal = !modal;
+    modal = false;
     shortcuts.push({
       "link": ev.detail[2],
       "icon": ev.detail[1],
@@ -90,7 +90,7 @@
               id="{i}"
               on:remove="{shortcutRemoveHandler}"
             )
-        button.add-shortcut(on:click!="{() => modal = !modal}")
+        button.add-shortcut(on:click!="{() => modal = true}")
           i.bi.bi-plus
 
   Weather
