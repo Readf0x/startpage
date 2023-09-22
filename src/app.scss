@@ -116,7 +116,7 @@ body {
           color: map.get($light, "green") !important;
         }
         &:hover {
-          background: map.get($light, "overlay0") !important;
+          background: map.get($light, "surface0") !important;
         }
       }
       input::placeholder {
@@ -126,9 +126,10 @@ body {
         background: map.get($light, "overlay0") !important;
       }
     }
-  }
-  button.reset {
-    background: map.get($light, "overlay0") !important;
+    button.reset {
+      background: map.get($light, "surface0") !important;
+      color: map.get($light, "red") !important;
+    }
   }
   &.no-transition,
   &.no-transition * {
