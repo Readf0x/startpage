@@ -1,4 +1,7 @@
 <script>
+  import { onMount } from "svelte";
+  import { defaultShortcuts, sleep } from "./lib/default";
+  import Sortable from "sortablejs";
   import Time from "./lib/Time.svelte";
   import Weather from './lib/Weather.svelte';
   import ThemeSwitch from "./lib/ThemeSwitch.svelte";
@@ -6,21 +9,24 @@
   import Shortcut from "./lib/Shortcut.svelte";
   import Dropdown from "./lib/Dropdown.svelte";
   import Modal from "./lib/Modal.svelte";
-  import { onMount } from "svelte";
-  import { defaultShortcuts } from "./lib/default";
 
+  let dropdown, shortcutList;
   let shortcuts = [];
-  let dropdown;
   let modal = false;
   let search = 0;
-  let offset;
-  const searchItems = [["google", "Google", "https://google.com/search?q="], ["duck", "DuckDuckGo", "https://duckduckgo.com/?q="], ["bing", "Bing", "https://bing.com/search?q="], ["ask", "Ask", "https://www.ask.com/web?q="]];
-
+  const searchItems = [
+    ["google", "Google", "https://google.com/search?q="],
+    ["duck", "DuckDuckGo", "https://duckduckgo.com/?q="],
+    ["bing", "Bing", "https://bing.com/search?q="],
+    ["ask", "Ask", "https://www.ask.com/web?q="]
+  ];
+  $: order = Array.from(Array(shortcuts.length).keys());
+  
   async function shortcutRemoveHandler(ev) {
     shortcuts = shortcuts.toSpliced(ev.detail, 1);
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
   };
-
+  
   function shortcutAddHandler(ev) {
     console.log(ev.detail);
     modal = !modal;
@@ -32,11 +38,33 @@
     shortcuts = shortcuts;
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
   }
-
+  
   onMount(() => {
     // @ts-ignore
     search = localStorage.getItem("search") != null ? localStorage.getItem("search") : 0;
     shortcuts = localStorage.getItem("shortcuts") != null ? JSON.parse(localStorage.getItem("shortcuts")) : defaultShortcuts();
+    const sortable = new Sortable(shortcutList, {
+      group: {
+        name: "shortcutList",
+        pull: false,
+        put: false
+      },
+      animation: 200,
+      forceFallback: true,
+      handle: ".shortcut",
+      fallbackClass: "ghost-fallback",
+      ghostClass: "shortcut-ghost",
+      chosenClass: "shortcut-chosen",
+      dragClass: "shortcut-drag",
+      
+      onSort: (ev) => {
+        shortcuts.splice(ev.newIndex, 0, shortcuts.splice(ev.oldIndex, 1)[0]);
+        localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
+        sortable.sort(order, false);
+        shortcuts = JSON.parse(localStorage.getItem("shortcuts"));
+        console.log(sortable.option("disabled"));
+      }
+    })
   });
 </script>
 
@@ -47,15 +75,16 @@
       Search(bind:dropdown bind:search items="{searchItems}")
     .beneath-search
       Dropdown(bind:dropdown bind:search items="{searchItems}")
-      .shortcut-list
-        +each("shortcuts as shortcut, i")
-          Shortcut(
-            link="{shortcut.link}"
-            type="{shortcut.type}"
-            icon="{shortcut.icon}"
-            id="{i}"
-            on:remove="{shortcutRemoveHandler}"
-          )
+      .shortcut-wrapper
+        .shortcut-list(bind:this="{shortcutList}")
+          +each("shortcuts as shortcut, i")
+            Shortcut(
+              link="{shortcut.link}"
+              type="{shortcut.type}"
+              icon="{shortcut.icon}"
+              id="{i}"
+              on:remove="{shortcutRemoveHandler}"
+            )
         button.add-shortcut(on:click!="{() => modal = !modal}")
           i.bi.bi-plus
 
@@ -93,26 +122,29 @@
       width: 100%;
     }
   }
-  .shortcut-list {
+  .shortcut-wrapper {
     margin-top: 15px;
     display: flex;
     justify-content: center;
     gap: 20px;
     max-width: 66vw;
     width: 100%;
-    flex-wrap: wrap;
-  }
-  .add-shortcut {
-    background: map.get($dark, "mantle");
-    color: map.get($dark, "text");
-    transition: 0.4s;
-    border: 1px solid map.get($dark, "mantle");
-    font: inherit;
-    font-size: 22px;
-    height: 44px;
-    width: 44px;
-    border-radius: 50px;
-    cursor: pointer;
-    outline: inherit;
+    .shortcut-list {
+      display: flex;
+      gap: 20px;
+    }
+    .add-shortcut {
+      background: map.get($dark, "mantle");
+      color: map.get($dark, "text");
+      transition: 0.4s;
+      border: 1px solid map.get($dark, "mantle");
+      font: inherit;
+      font-size: 22px;
+      height: 44px;
+      width: 44px;
+      border-radius: 50px;
+      cursor: pointer;
+      outline: inherit;
+    }
   }
 </style>

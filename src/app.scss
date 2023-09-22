@@ -126,3 +126,18 @@ body {
     }
   }
 }
+
+.ghost-fallback {
+  opacity: 1 !important;
+}
+.shortcut {
+  &-ghost {
+    outline: 1px dashed map.get($dark, "overlay0");
+    .remove {
+      display: none !important;
+    }
+    .shortcut {
+      opacity: 0;
+    }
+  }
+}

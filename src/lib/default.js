@@ -559,3 +559,7 @@ export function defaultShortcuts() {
   ]));
 	return JSON.parse(localStorage.getItem("shortcuts"));
 }
+
+export function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

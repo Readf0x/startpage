@@ -25,13 +25,13 @@
 </script>
   
 <template lang="pug">
-  .shortcut-wrapper(bind:this="{self}")
+  .shortcut-container(bind:this="{self}" data-id="{id}")
     a(href="{link}")
       .shortcut
         +if("type == 'font'")
           i.bi(class="bi-{icon}")
         +if("type == 'img'")
-          img(src="{autoIcon()}" alt="link to {link}" class:nofilter="{icon.endsWith('-nofilter')}")
+          img(src="{autoIcon()}" alt="link to {link}" class:nofilter="{icon.endsWith('-nofilter')}" draggable="false")
         +if("type == 'char'")
           span.char {@html checkChar(icon)}
     button.remove(on:click!="{() => dispatch('remove', id)}")
@@ -103,11 +103,13 @@
       height: 22px;
     }
   }
-  .shortcut-wrapper {
+  .shortcut-container {
     display: flex;
     &:hover .remove {
       background: map.get($dark, "overlay0");
       color: map.get($dark, "text");
     }
+    border-radius: 50%;
+    user-select: none;
   }
 </style>
