@@ -26,6 +26,7 @@
     ["bing", "Bing", "https://bing.com/search?q="],
     ["yandex", "Yandex", "https://yandex.com/search/?text="],
     ["yahoo", "Yahoo", "https://search.yahoo.com/search?p="],
+    ["baidu", "Baidu", "https://baidu.com/#wd="],
     ["ask", "Ask.com", "https://www.ask.com/web?q="],
   ];
   $: order = Array.from(Array(shortcuts.length).keys());
