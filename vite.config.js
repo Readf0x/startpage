@@ -16,7 +16,6 @@ export default defineConfig({
 
         handler(warning);
       },
-    }),
-    "prettier-plugin-svelte"
+    })
   ],
 })
