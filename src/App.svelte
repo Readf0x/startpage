@@ -15,6 +15,11 @@
   let shortcuts = [];
   let modal = false;
   let search = 0;
+  let resetCount = 0;
+  $: resetText = ({
+    0: "Reset",
+    1: "Are you sure?"
+  })[resetCount];
   const searchItems = [
     ["google", "Google", "https://google.com/search?q="],
     ["duck", "DuckDuckGo", "https://duckduckgo.com/?q="],
@@ -40,7 +45,14 @@
     });
     shortcuts = shortcuts;
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
-  }
+  };
+
+  function resetHandler() {
+    switch(resetCount) {
+      case 0: resetCount = 1; break;
+      case 1: localStorage.clear(); location.reload(); break;
+    };
+  };
   
   onMount(async () => {
     // @ts-ignore
@@ -99,6 +111,8 @@
 
   +if("modal")
     Modal(on:submit="{shortcutAddHandler}" on:cancel!="{() => modal = !modal}")
+
+  button.reset(on:click="{resetHandler}") {resetText}
 </template>
 
 <style lang="scss">
@@ -150,6 +164,22 @@
       border-radius: 50px;
       cursor: pointer;
       outline: inherit;
+    }
+  }
+  button.reset {
+    border: none;
+    background: map.get($dark, "overlay0");
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    box-sizing: border-box;
+    padding: 4px 6px;
+    opacity: 0;
+    transition: 0.4s;
+    border-radius: 5px;
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
     }
   }
 </style>
