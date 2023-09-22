@@ -35,9 +35,11 @@
     margin-left: 1px;
     transition: 0.4s;
     z-index: 2;
+    opacity: 0;
     &.enabled {
       animation: slideDown 0.4s ease-in-out;
       transform: translateY(0%);
+      opacity: 1;
     }
     .dropdown-item {
       border: none;
