@@ -527,39 +527,42 @@ export function defaultApi() {
       }\
     }'
   );
-};
+}
 
 export function defaultShortcuts() {
-  localStorage.setItem("shortcuts", JSON.stringify([
-    {
-      link: "https://github.com",
-      type: "font",
-      icon: "github"
-    },
-    {
-      link: "https://wiki.hyprland.org",
-      type: "img",
-      icon: "https://hyprland.org/ico/favicon-32x32.png"
-    },
-    {
-      link: "https://wiki.archlinux.org",
-      type: "img",
-      icon: "https://wiki.installgentoo.com/images/f/f9/Arch-linux-logo.png"
-    },
-    {
-      link: "https://youtube.com",
-      type: "font",
-      icon: "youtube"
-    },
-    {
-      link: "https://x.com",
-      type: "char",
-      icon: "&Xopf;"
-    }
-  ]));
-	return JSON.parse(localStorage.getItem("shortcuts"));
+  localStorage.setItem(
+    "shortcuts",
+    JSON.stringify([
+      {
+        link: "https://github.com",
+        type: "font",
+        icon: "github",
+      },
+      {
+        link: "https://wiki.hyprland.org",
+        type: "img",
+        icon: "https://hyprland.org/ico/favicon-32x32.png",
+      },
+      {
+        link: "https://wiki.archlinux.org",
+        type: "img",
+        icon: "https://wiki.installgentoo.com/images/f/f9/Arch-linux-logo.png",
+      },
+      {
+        link: "https://youtube.com",
+        type: "font",
+        icon: "youtube",
+      },
+      {
+        link: "https://twitch.tv",
+        type: "font",
+        icon: "twitch",
+      },
+    ])
+  );
+  return JSON.parse(localStorage.getItem("shortcuts"));
 }
 
 export function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
