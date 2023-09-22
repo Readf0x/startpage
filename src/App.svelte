@@ -9,6 +9,7 @@
   import Shortcut from "./lib/Shortcut.svelte";
   import Dropdown from "./lib/Dropdown.svelte";
   import Modal from "./lib/Modal.svelte";
+  import jquery from "jquery";
 
   let dropdown, shortcutList;
   let shortcuts = [];
@@ -39,7 +40,7 @@
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
   }
   
-  onMount(() => {
+  onMount(async () => {
     // @ts-ignore
     search = localStorage.getItem("search") != null ? localStorage.getItem("search") : 0;
     shortcuts = localStorage.getItem("shortcuts") != null ? JSON.parse(localStorage.getItem("shortcuts")) : defaultShortcuts();
@@ -64,7 +65,9 @@
         shortcuts = JSON.parse(localStorage.getItem("shortcuts"));
         console.log(sortable.option("disabled"));
       }
-    })
+    });
+    await new Promise(r => setTimeout(r, 250));
+    jquery(".no-transition").removeClass("no-transition");
   });
 </script>
 
