@@ -55,6 +55,7 @@
     }
     .char {
       font-family: initial;
+      user-select: none !important;
     }
     font-size: 22px;
     background: map.get($dark, "mantle");
@@ -110,6 +111,5 @@
       color: map.get($dark, "text");
     }
     border-radius: 50%;
-    user-select: none;
   }
 </style>
