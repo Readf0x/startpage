@@ -24,10 +24,13 @@
     ["google", "Google", "https://google.com/search?q="],
     ["duck", "DuckDuckGo", "https://duckduckgo.com/?q="],
     ["bing", "Bing", "https://bing.com/search?q="],
-    ["yandex", "Yandex", "https://yandex.com/search/?text="],
     ["yahoo", "Yahoo", "https://search.yahoo.com/search?p="],
+    ["startpage", "Startpage", "https://www.startpage.com/sp/search?query="],
+    ["qwant", "Qwant", "https://www.qwant.com/?q="],
+    ["yandex", "Yandex", "https://yandex.com/search/?text="],
     ["ask", "Ask.com", "https://www.ask.com/web?q="],
     ["baidu", "Baidu", "https://www.baidu.com/#wd="],
+    ["ecosia", "Ecosia", "https://www.ecosia.org/search?q="],
   ];
   $: order = Array.from(Array(shortcuts.length).keys());
 

@@ -54,7 +54,7 @@
       }
       svg {
         position: relative;
-        top: 2px;
+        top: 1px;
       }
     }
   }
