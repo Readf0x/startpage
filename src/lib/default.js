@@ -539,14 +539,14 @@ export function defaultShortcuts() {
         icon: "github",
       },
       {
-        link: "https://wiki.hyprland.org",
-        type: "img",
-        icon: "https://hyprland.org/ico/favicon-32x32.png",
+        link: "https://stackoverflow.com/",
+        type: "font",
+        icon: "stack-overflow",
       },
       {
-        link: "https://wiki.archlinux.org",
-        type: "img",
-        icon: "https://wiki.installgentoo.com/images/f/f9/Arch-linux-logo.png",
+        link: "https://news.ycombinator.com",
+        type: "char",
+        icon: "Y",
       },
       {
         link: "https://youtube.com",
@@ -554,9 +554,9 @@ export function defaultShortcuts() {
         icon: "youtube",
       },
       {
-        link: "https://twitch.tv",
-        type: "font",
-        icon: "twitch",
+        link: "https://wiki.archlinux.org",
+        type: "img",
+        icon: "https://wiki.installgentoo.com/images/f/f9/Arch-linux-logo.png",
       },
     ])
   );
