@@ -1,5 +1,5 @@
 # Custom startpage
-###### written with Svelte and Vite in the Catppuccin theme
+*written with Svelte and Vite in the Catppuccin theme*
 ![screenshot](https://raw.githubusercontent.com/readf0x/startpage/main/assets/1.png)
 
 Features:
