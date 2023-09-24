@@ -14,7 +14,7 @@
   }
 
   function autoIcon() {
-    if(icon.endsWith('-nofilter')) {
+    if(icon.endsWith("-nofilter")) {
       if(icon == "auto-nofilter" && type == "img") return "https://s2.googleusercontent.com/s2/favicons?domain_url=" + link
       else return icon.slice(0, -9)
     } else {

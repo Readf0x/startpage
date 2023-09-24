@@ -6,12 +6,12 @@
   $: time = Intl.DateTimeFormat("en-US", {
     hour: "2-digit",
     minute: "2-digit",
-    second: "2-digit"
+    second: "2-digit",
   }).format(localTime);
   $: date = Intl.DateTimeFormat("en-US", {
     month: "long",
     day: "2-digit",
-    year: "numeric"
+    year: "numeric",
   }).format(localTime);
 
   onMount(() => {
@@ -21,8 +21,8 @@
 
     return () => {
       clearInterval(interval);
-    }
-  })
+    };
+  });
 </script>
 
 <template lang="pug">

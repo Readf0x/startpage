@@ -32,7 +32,7 @@
     button#cancel(on:click!="{() => dispatch('cancel')}") Cancel
 </template>
 
-<svelte:window on:keydown|preventDefault={keyPressHandler} />
+<svelte:window on:keydown={keyPressHandler} />
 
 <style lang="scss">
   @use "sass:map";

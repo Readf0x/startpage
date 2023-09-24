@@ -1,21 +1,18 @@
-import { defineConfig } from "vite"
-import { svelte } from "@sveltejs/vite-plugin-svelte"
-import { sveltePreprocess } from "svelte-preprocess/dist/autoProcess"
+import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { sveltePreprocess } from "svelte-preprocess/dist/autoProcess";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     svelte({
-      preprocess: [
-        sveltePreprocess()
-      ],
+      preprocess: [sveltePreprocess()],
       onwarn: (warning, handler) => {
         const { code, frame } = warning;
-        if(code == "css-unused-selector")
-          return;
+        if (code == "css-unused-selector") return;
 
         handler(warning);
       },
-    })
+    }),
   ],
-})
+});

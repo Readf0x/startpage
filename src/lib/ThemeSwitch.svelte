@@ -3,7 +3,10 @@
   import { onMount } from "svelte";
   // const { setTimeout } = require('timers/promises');
 
-  $: checked = localStorage.getItem("theme") != null ? localStorage.getItem("theme") == "true" : window.matchMedia('(prefers-color-scheme: light)').matches;
+  $: checked =
+    localStorage.getItem("theme") != null
+      ? localStorage.getItem("theme") == "true"
+      : window.matchMedia("(prefers-color-scheme: light)").matches;
 
   function themeMatch() {
     if (checked) {
@@ -19,7 +22,7 @@
 
   onMount(() => {
     themeMatch();
-  })
+  });
 </script>
 
 <template lang="pug">
@@ -75,8 +78,8 @@
     right: 0;
     bottom: 0;
     background-color: map.get($dark, "mantle");
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
     border-radius: 34px;
     display: flex;
     align-items: center;
@@ -86,8 +89,8 @@
       height: 34px;
       width: 34px;
       background-color: map.get($dark, "surface0");
-      -webkit-transition: .4s;
-      transition: .4s;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
       border-radius: 50%;
     }
     .bi {

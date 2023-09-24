@@ -3,7 +3,7 @@
   import { defaultShortcuts, sleep } from "./lib/default";
   import Sortable from "sortablejs";
   import Time from "./lib/Time.svelte";
-  import Weather from './lib/Weather.svelte';
+  import Weather from "./lib/Weather.svelte";
   import ThemeSwitch from "./lib/ThemeSwitch.svelte";
   import Search from "./lib/Search.svelte";
   import Shortcut from "./lib/Shortcut.svelte";
@@ -16,10 +16,10 @@
   let modal = false;
   let search = 0;
   let resetCount = 0;
-  $: resetText = ({
+  $: resetText = {
     0: "Reset",
-    1: "Are you sure?"
-  })[resetCount];
+    1: "Are you sure?",
+  }[resetCount];
   const searchItems = [
     ["google", "Google", "https://google.com/search?q="],
     ["duck", "DuckDuckGo", "https://duckduckgo.com/?q="],
@@ -27,42 +27,55 @@
     ["yandex", "Yandex", "https://yandex.com/search/?text="],
     ["yahoo", "Yahoo", "https://search.yahoo.com/search?p="],
     ["ask", "Ask.com", "https://www.ask.com/web?q="],
+    ["baidu", "Baidu", "https://www.baidu.com/#wd="],
   ];
   $: order = Array.from(Array(shortcuts.length).keys());
-  
+
   async function shortcutRemoveHandler(ev) {
     shortcuts = shortcuts.toSpliced(ev.detail, 1);
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
-  };
-  
+  }
+
   function shortcutAddHandler(ev) {
     console.log(ev.detail);
     modal = false;
     shortcuts.push({
-      "link": ev.detail[2],
-      "icon": ev.detail[1],
-      "type": ev.detail[0]
+      link: ev.detail[2],
+      icon: ev.detail[1],
+      type: ev.detail[0],
     });
     shortcuts = shortcuts;
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
-  };
+  }
 
   function resetHandler() {
-    switch(resetCount) {
-      case 0: resetCount = 1; setTimeout(() => resetCount = 0, 5000); break;
-      case 1: localStorage.clear(); location.reload(); break;
-    };
-  };
-  
+    switch (resetCount) {
+      case 0:
+        resetCount = 1;
+        setTimeout(() => (resetCount = 0), 5000);
+        break;
+      case 1:
+        localStorage.clear();
+        location.reload();
+        break;
+    }
+  }
+
   onMount(async () => {
     // @ts-ignore
-    search = localStorage.getItem("search") != null ? localStorage.getItem("search") : 0;
-    shortcuts = localStorage.getItem("shortcuts") != null ? JSON.parse(localStorage.getItem("shortcuts")) : defaultShortcuts();
+    search =
+      localStorage.getItem("search") != null
+        ? localStorage.getItem("search")
+        : 0;
+    shortcuts =
+      localStorage.getItem("shortcuts") != null
+        ? JSON.parse(localStorage.getItem("shortcuts"))
+        : defaultShortcuts();
     const sortable = new Sortable(shortcutList, {
       group: {
         name: "shortcutList",
         pull: false,
-        put: false
+        put: false,
       },
       animation: 400,
       forceFallback: true,
@@ -71,16 +84,16 @@
       ghostClass: "shortcut-ghost",
       chosenClass: "shortcut-chosen",
       dragClass: "shortcut-drag",
-      
+
       onSort: (ev) => {
         shortcuts.splice(ev.newIndex, 0, shortcuts.splice(ev.oldIndex, 1)[0]);
         localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
         sortable.sort(order, false);
         shortcuts = JSON.parse(localStorage.getItem("shortcuts"));
         console.log(sortable.option("disabled"));
-      }
+      },
     });
-    await new Promise(r => setTimeout(r, 250));
+    await new Promise((r) => setTimeout(r, 250));
     jquery(".no-transition").removeClass("no-transition");
   });
 </script>

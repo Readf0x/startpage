@@ -1,5 +1,5 @@
 <script>
-  import { afterUpdate } from 'svelte';
+  import { afterUpdate } from "svelte";
   import jquery from "jquery";
 
   export let dropdown = false;
@@ -14,6 +14,7 @@
     value = "";
   }
 </script>
+
 <template lang="pug">
   .search
     button.provider-icon(on:click!="{() => {dropdown = !dropdown}}")
@@ -62,7 +63,7 @@
       color: map.get($dark, "text");
       &:hover {
         cursor: pointer;
-        color: map.get($dark, "subtext0")
+        color: map.get($dark, "subtext0");
       }
       i.bi {
         font-size: 12px;
