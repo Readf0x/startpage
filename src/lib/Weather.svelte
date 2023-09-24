@@ -1,36 +1,34 @@
 <script>
   import { onMount } from "svelte";
+  // @ts-ignore
   import jquery from "jquery";
+  // @ts-ignore
   import { defaultApi } from "./default";
 
-  $: api = defaultApi();
+  let api = defaultApi();
   $: icon = wmo(api.hourly.weathercode[new Date().getHours()])[1];
   $: temp =
     api.hourly.temperature_2m[new Date().getHours()] +
     api.hourly_units.temperature_2m;
   $: cond = wmo(api.hourly.weathercode[new Date().getHours()])[0];
 
-  function getApi() {
-    console.assert(
-      new Date().toISOString().slice(0, 10) == localStorage.getItem("expiry"),
-      new Date().toISOString().slice(0, 10),
-      localStorage.getItem("expiry")
-    );
+  async function getApi(reload) {
     if (
-      new Date().toISOString().slice(0, 10) != localStorage.getItem("expiry")
+      new Date().toISOString().slice(0, 10) != localStorage.getItem("expiry") || reload
     ) {
-      console.log("API out of date, requesting...");
       // @ts-ignore
       jquery.getJSON(
         "https://api.open-meteo.com/v1/forecast?latitude=34.9554&longitude=-90.0348&hourly=temperature_2m,weathercode&temperature_unit=fahrenheit&timezone=auto&forecast_days=1",
         (json) => {
+          // console.log(json);
           localStorage.setItem("api", JSON.stringify(json));
           localStorage.setItem("expiry", new Date().toISOString().slice(0, 10));
+          api = JSON.parse(localStorage.getItem("api"));
         }
       );
+    } else {
+      api = JSON.parse(localStorage.getItem("api"));
     }
-
-    return JSON.parse(localStorage.getItem("api"));
   }
 
   function wmo(x) {
@@ -66,10 +64,10 @@
   }
 
   onMount(() => {
-    api = getApi();
+    getApi();
     console.log("api var update");
     const interval = setInterval(() => {
-      api = getApi();
+      getApi();
       console.log("api var update");
     }, 60000);
 
