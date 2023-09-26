@@ -3,8 +3,8 @@
   const dispatch = createEventDispatcher();
 
   export let type = "font";
-  export let icon = "link-45deg";
-  export let link = "about:blank";
+  export let icon = "";
+  export let link = "";
   export let id = -1;
   let self;
 
@@ -25,13 +25,21 @@
 </script>
   
 <template lang="pug">
-  .shortcut-container(bind:this="{self}" data-id="{id}")
+  .shortcut-container(
+    bind:this="{self}"
+    data-id="{id}"
+  )
     a(href="{link}")
       .shortcut
         +if("type == 'font'")
           i.bi(class="bi-{icon}")
         +if("type == 'img'")
-          img(src="{autoIcon()}" alt="link to {link}" class:nofilter="{icon.endsWith('-nofilter')}" draggable="false")
+          img(
+            src="{autoIcon()}"
+            alt="link to {link}"
+            class:nofilter="{icon.endsWith('-nofilter')}"
+            draggable="false"
+          )
         +if("type == 'char'")
           span.char {@html checkChar(icon)}
     button.remove(on:click!="{() => dispatch('remove', id)}")
@@ -39,16 +47,14 @@
 </template>
   
 <style lang="scss">
-  @use "sass:map";
-  @import "../boiler.scss";
-
   .shortcut {
     display: flex;
     i, .char {
-      color: map.get($dark, "text");
+      color: var(--text);
     }
     img {
       width: 22px;
+      user-select: none !important;
       &:not(.nofilter) {
         filter: brightness(0) saturate(100%) invert(88%) sepia(4%) saturate(2257%) hue-rotate(194deg) brightness(97%) contrast(98%);
       }
@@ -58,13 +64,13 @@
       user-select: none !important;
     }
     font-size: 22px;
-    background: map.get($dark, "mantle");
+    background: var(--mantle);
     padding: 10px;
     border-radius: 50px;
     width: 22px;
     height: 22px;
     transition: 0.4s;
-    border: 1px solid map.get($dark, "mantle");
+    border: 1px solid var(--mantle);
     justify-content: center;
     align-items: center;
     line-height: 1;
@@ -107,8 +113,8 @@
   .shortcut-container {
     display: flex;
     &:hover .remove {
-      background: map.get($dark, "overlay0");
-      color: map.get($dark, "text");
+      background: var(--overlay0);
+      color: var(--text);
     }
     border-radius: 50%;
   }

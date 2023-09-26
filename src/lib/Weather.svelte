@@ -86,8 +86,6 @@
 </template>
 
 <style lang="scss">
-  @import "@catppuccin/palette/scss/_mocha.scss";
-
   .weather {
     width: fit-content;
     position: absolute;

@@ -1,10 +1,36 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { variants } from "@catppuccin/palette";
   const dispatch = createEventDispatcher();
 
-  export let type = "font";
-  export let icon;
-  export let link;
+  export let custom = {
+    rosewater: { hex: variants.mocha.rosewater.hex },
+    flamingo: { hex: variants.mocha.flamingo.hex },
+    pink: { hex: variants.mocha.pink.hex },
+    mauve: { hex: variants.mocha.mauve.hex },
+    red: { hex: variants.mocha.red.hex },
+    maroon: { hex: variants.mocha.maroon.hex },
+    peach: { hex: variants.mocha.peach.hex },
+    yellow: { hex: variants.mocha.yellow.hex },
+    green: { hex: variants.mocha.green.hex },
+    teal: { hex: variants.mocha.teal.hex },
+    sky: { hex: variants.mocha.sky.hex },
+    sapphire: { hex: variants.mocha.sapphire.hex },
+    blue: { hex: variants.mocha.blue.hex },
+    lavender: { hex: variants.mocha.lavender.hex },
+    text: { hex: variants.mocha.text.hex },
+    subtext1: { hex: variants.mocha.subtext1.hex },
+    subtext0: { hex: variants.mocha.subtext0.hex },
+    overlay2: { hex: variants.mocha.overlay2.hex },
+    overlay1: { hex: variants.mocha.overlay1.hex },
+    overlay0: { hex: variants.mocha.overlay0.hex },
+    surface2: { hex: variants.mocha.surface2.hex },
+    surface1: { hex: variants.mocha.surface1.hex },
+    surface0: { hex: variants.mocha.surface0.hex },
+    base: { hex: variants.mocha.base.hex },
+    mantle: { hex: variants.mocha.mantle.hex },
+    crust: { hex: variants.mocha.crust.hex }
+  };
 
   function keyPressHandler(ev) {
     if(ev.key == "Escape") dispatch("cancel");
@@ -14,25 +40,14 @@
 <template lang="pug">
   .modal-cover
   .modal
-    h1.title Create Shortcut:
-    input#link(name="link" placeholder="Enter Link..." bind:value="{link}")
-    p Icon Type:
-    select#type(name="type" bind:value="{type}")
-      option(value="font") Font
-      option(value="img") Image
-      option(value="char") Unicode
-    input#icon(name="icon" placeholder="Enter Icon Name..." bind:value="{icon}")
-    +if("type == 'font'")
-      p.info Should be a bootstrap icon (without the #[code bi-])
-    +if("type == 'img'")
-      p.info Should be #[code auto] or a link to an image
-    +if("type == 'char'")
-      p.info Should be a single character or an html symbol
-    button#submit(on:click!="{() => dispatch('submit', [type, icon, link])}") Add
+    h1.title Custom Theme:
+    +each("Object.entries(custom) as [color, value]")
+      p test
+    button#submit(on:click!="{() => dispatch('submit')}") Done
     button#cancel(on:click!="{() => dispatch('cancel')}") Cancel
 </template>
 
-<svelte:window on:keydown={keyPressHandler} />
+<!-- <svelte:window on:keydown={keyPressHandler} /> -->
 
 <style lang="scss">
   .modal-cover {

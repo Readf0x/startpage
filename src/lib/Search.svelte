@@ -31,9 +31,6 @@
 </template>
 
 <style lang="scss">
-  @use "sass:map";
-  @import "../boiler.scss";
-
   .search {
     display: flex;
     width: 66vw;
@@ -41,13 +38,13 @@
     height: 30px;
     transition: 0.4s;
     & > * {
-      background: map.get($dark, "mantle");
+      background: var(--mantle);
       border-radius: 2px;
       height: 100%;
       display: flex;
       align-items: center;
       transition: 0.4s;
-      border: 1px solid map.get($dark, "mantle");
+      border: 1px solid var(--mantle);
       box-sizing: content-box;
       outline: none;
     }
@@ -55,15 +52,15 @@
       padding: 0 4px 0 8px;
       border-radius: 30px 4px 4px 30px;
       cursor: pointer;
-      color: map.get($dark, "text");
+      color: var(--text);
     }
     .dropdown-button {
-      border: 1px solid map.get($dark, "mantle");
+      border: 1px solid var(--mantle);
       padding: 0;
-      color: map.get($dark, "text");
+      color: var(--text);
       &:hover {
         cursor: pointer;
-        color: map.get($dark, "subtext0");
+        color: var(--subtext0);
       }
       i.bi {
         font-size: 12px;
@@ -84,14 +81,14 @@
       input {
         background: none;
         border: none;
-        color: map.get($dark, "text");
+        color: var(--text);
         width: 100%;
         font-size: 14px;
         &:focus {
           outline: none;
         }
         &::placeholder {
-          color: map.get($dark, "subtext0");
+          color: var(--subtext0);
           font-style: italic;
         }
       }
@@ -100,7 +97,7 @@
       padding: 0 8px 0 4px;
       border-radius: 4px 30px 30px 4px;
       cursor: pointer;
-      color: map.get($dark, "text");
+      color: var(--text);
     }
     i.bi {
       font-size: 18px;

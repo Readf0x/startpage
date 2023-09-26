@@ -31,9 +31,6 @@
 </template>
 
 <style lang="scss">
-  @use "sass:map";
-  @import "../boiler.scss";
-
   .time {
     font-variant-numeric: oldstyle-nums tabular-nums;
     font-family: Noto Serif;
@@ -43,12 +40,12 @@
     margin: 10px;
     transition: 0.4s;
     font-weight: 400;
-    color: map.get($dark, "text");
+    color: var(--text);
   }
   .date {
     font-family: Noto Sans;
     font-size: 15px;
     letter-spacing: 4.5px;
-    color: map.get($dark, "subtext0");
+    color: var(--subtext0);
   }
 </style>

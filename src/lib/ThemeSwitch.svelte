@@ -1,24 +1,58 @@
 <script>
   import jquery from "jquery";
   import { onMount } from "svelte";
+  import { variants } from "@catppuccin/palette";
   // const { setTimeout } = require('timers/promises');
 
-  $: checked =
+  let checked =
     localStorage.getItem("theme") != null
       ? localStorage.getItem("theme") == "true"
       : window.matchMedia("(prefers-color-scheme: light)").matches;
 
+  let theme = variants.mocha;
+
   function themeMatch() {
     if (checked) {
       document.body.classList.add("light");
+      theme = variants.latte;
       // @ts-ignore
       localStorage.setItem("theme", true);
     } else {
       document.body.classList.remove("light");
+      theme = variants.mocha;
       // @ts-ignore
       localStorage.setItem("theme", false);
     }
   }
+
+  $: jquery(":root").css({
+    "--rosewater": theme.rosewater.hex,
+    "--flamingo": theme.flamingo.hex,
+    "--pink": theme.pink.hex,
+    "--mauve": theme.mauve.hex,
+    "--red": theme.red.hex,
+    "--maroon": theme.maroon.hex,
+    "--peach": theme.peach.hex,
+    "--yellow": theme.yellow.hex,
+    "--green": theme.green.hex,
+    "--teal": theme.teal.hex,
+    "--sky": theme.sky.hex,
+    "--sapphire": theme.sapphire.hex,
+    "--blue": theme.blue.hex,
+    "--lavender": theme.lavender.hex,
+    "--text": theme.text.hex,
+    "--subtext1": theme.subtext1.hex,
+    "--subtext0": theme.subtext0.hex,
+    "--overlay2": theme.overlay2.hex,
+    "--overlay1": theme.overlay1.hex,
+    "--overlay0": theme.overlay0.hex,
+    "--surface2": theme.surface2.hex,
+    "--surface1": theme.surface1.hex,
+    "--surface0": theme.surface0.hex,
+    "--base": theme.base.hex,
+    "--mantle": theme.mantle.hex,
+    "--crust": theme.crust.hex
+  });
 
   onMount(() => {
     themeMatch();
@@ -34,9 +68,6 @@
 </template>
 
 <style lang="scss">
-  @use "sass:map";
-  @import "../boiler.scss";
-
   /* The switch - the box around the slider */
   .switch {
     margin: 15px;
@@ -50,20 +81,20 @@
       width: 0;
       height: 0;
       &:checked + .slider {
-        background-color: map.get($light, "mantle");
+        background-color: var(--mantle);
         &:before {
           -webkit-transform: translateX(36px);
           -ms-transform: translateX(36px);
           transform: translateX(36px);
-          background: map.get($light, "surface0");
-          outline: 1px solid map.get($light, "text");
+          background: var(--surface0);
+          outline: 1px solid var(--text);
         }
         .bi {
           &-moon-stars {
-            color: map.get($light, "surface1");
+            color: var(--surface1);
           }
           &-sun {
-            color: map.get($light, "text");
+            color: var(--text);
           }
         }
       }
@@ -77,7 +108,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: map.get($dark, "mantle");
+    background-color: var(--mantle);
     -webkit-transition: 0.4s;
     transition: 0.4s;
     border-radius: 34px;
@@ -88,7 +119,7 @@
       content: "";
       height: 34px;
       width: 34px;
-      background-color: map.get($dark, "surface0");
+      background-color: var(--surface0);
       -webkit-transition: 0.4s;
       transition: 0.4s;
       border-radius: 50%;
@@ -107,11 +138,11 @@
       }
       &-moon-stars {
         left: 6px;
-        color: map.get($dark, "text");
+        color: var(--text);
       }
       &-sun {
         left: 23px;
-        color: map.get($dark, "surface1");
+        color: var(--surface1);
       }
     }
   }

@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { defaultShortcuts, sleep } from "./lib/default";
+  import { variants } from "@catppuccin/palette";
   import Sortable from "sortablejs";
   import Time from "./lib/Time.svelte";
   import Weather from "./lib/Weather.svelte";
@@ -9,11 +10,13 @@
   import Shortcut from "./lib/Shortcut.svelte";
   import Dropdown from "./lib/Dropdown.svelte";
   import Modal from "./lib/Modal.svelte";
+  import ThemeModal from "./lib/ThemeModal.svelte";
   import jquery from "jquery";
 
   let dropdown, shortcutList;
   let shortcuts = [];
   let modal = false;
+  let themeModal = false;
   let search = 0;
   let resetCount = 0;
   $: resetText = {
@@ -33,6 +36,8 @@
     ["ecosia", "Ecosia", "https://www.ecosia.org/search?q="],
   ];
   $: order = Array.from(Array(shortcuts.length).keys());
+
+  let custom;
 
   async function shortcutRemoveHandler(ev) {
     shortcuts = shortcuts.toSpliced(ev.detail, 1);
@@ -123,33 +128,44 @@
 
   Weather
 
-  ThemeSwitch
-
-  +if("modal")
-    Modal(on:submit="{shortcutAddHandler}" on:cancel!="{() => modal = !modal}")
+  .theme-wrapper
+    ThemeSwitch
+    .flex(style="display: flex; justify-content: space-between; width: 100%;")
+      span {themeModal}
+      button.openThemeEditor(on:click!="{() => themeModal = !themeModal}") #[i.bi.bi-gear]
 
   button.reset(on:click="{resetHandler}") {resetText}
+
+  +if("modal")
+    Modal(
+      on:submit="{shortcutAddHandler}"
+      on:cancel!="{() => modal = !modal}"
+    )
+
+  +if("themeModal")
+    ThemeModal(
+      on:submit!="{() => themeModal = !themeModal}"
+      on:cancel!="{() => themeModal = !themeModal}"
+    )
+    
 </template>
 
 <style lang="scss">
-  @use "sass:map";
-  @import "./boiler.scss";
-
   .center {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: fit-content;
+    height: 100vh;
+    justify-content: center;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     .above-search {
-      background: map.get($dark, "base");
       z-index: 3;
       transition: 0.4s;
-      // width: 100vw;
     }
     .beneath-search {
       display: flex;
@@ -169,10 +185,10 @@
       gap: 20px;
     }
     .add-shortcut {
-      background: map.get($dark, "mantle");
-      color: map.get($dark, "text");
+      background: var(--mantle);
+      color: var(--text);
       transition: 0.4s;
-      border: 1px solid map.get($dark, "mantle");
+      border: 1px solid var(--mantle);
       font: inherit;
       font-size: 22px;
       height: 44px;
@@ -184,8 +200,8 @@
   }
   button.reset {
     border: none;
-    background: map.get($dark, "surface0");
-    color: map.get($dark, "red");
+    background: var(--surface0);
+    color: var(--red);
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -196,6 +212,24 @@
     border-radius: 5px;
     &:hover {
       opacity: 1;
+      cursor: pointer;
+    }
+  }
+  .theme-wrapper:hover button.openThemeEditor {
+    opacity: 1;
+    width: fit-content;
+  }
+  button.openThemeEditor {
+    border: none;
+    background: var(--mantle);
+    color: var(--text);
+    box-sizing: border-box;
+    padding: 4px 6px;
+    opacity: 0;
+    transition: 0.4s;
+    border-radius: 5px;
+    &:hover {
+      background: var(--surface0);
       cursor: pointer;
     }
   }

@@ -20,16 +20,14 @@
 </template>
 
 <style lang="scss">
-  @use "sass:map";
-  @import "../boiler.scss";
-
   .dropdown-menu {
     list-style: none;
-    background: map.get($dark, "mantle");
-    border: 1px solid map.get($dark, "mantle");
+    background: var(--mantle);
+    border: 1px solid var(--mantle);
     padding: 10px 15px;
     border-radius: 20px;
-    transform: translateY(-110%);
+    transform: scaleY(0%);
+    transform-origin: top;
     position: absolute;
     margin-top: 6px;
     margin-left: 1px;
@@ -38,7 +36,7 @@
     opacity: 0;
     &.enabled {
       animation: slideDown 0.4s ease-in-out;
-      transform: translateY(0%);
+      transform: scaleY(100%);
       opacity: 1;
     }
     .dropdown-item {
@@ -48,9 +46,9 @@
       cursor: pointer;
       width: 100%;
       text-align: left;
-      color: map.get($dark, "text");
+      color: var(--text);
       &:hover {
-        color: map.get($dark, "subtext0");
+        color: var(--subtext0);
       }
       svg {
         position: relative;
@@ -61,10 +59,10 @@
 
   @keyframes slideDown {
     from {
-      transform: translateY(-110%);
+      transform: scaleY(0%);
     }
     to {
-      transform: translateY(0%);
+      transform: scaleY(100%);
     }
   }
 </style>
