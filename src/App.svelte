@@ -130,9 +130,7 @@
 
   .theme-wrapper
     ThemeSwitch
-    .flex(style="display: flex; justify-content: space-between; width: 100%;")
-      span {themeModal}
-      button.openThemeEditor(on:click!="{() => themeModal = !themeModal}") #[i.bi.bi-gear]
+    button.openThemeEditor(on:click!="{() => themeModal = !themeModal}") Edit #[i.bi.bi-gear]
 
   button.reset(on:click="{resetHandler}") {resetText}
 
@@ -215,9 +213,15 @@
       cursor: pointer;
     }
   }
-  .theme-wrapper:hover button.openThemeEditor {
-    opacity: 1;
+  .theme-wrapper {
     width: fit-content;
+    float: right;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    &:hover button.openThemeEditor {
+      opacity: 1;
+    }
   }
   button.openThemeEditor {
     border: none;
@@ -225,9 +229,11 @@
     color: var(--text);
     box-sizing: border-box;
     padding: 4px 6px;
-    opacity: 0;
     transition: 0.4s;
     border-radius: 5px;
+    opacity: 0;
+    position: relative;
+    bottom: 10px;
     &:hover {
       background: var(--surface0);
       cursor: pointer;

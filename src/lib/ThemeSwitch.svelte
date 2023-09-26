@@ -74,7 +74,7 @@
     position: relative;
     width: 70px;
     height: 34px;
-    float: right;
+    // right: 25px;
     /* Hide default HTML checkbox */
     input {
       opacity: 0;
