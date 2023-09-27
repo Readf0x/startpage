@@ -8,7 +8,7 @@
   import Search from "./lib/Search.svelte";
   import Shortcut from "./lib/Shortcut.svelte";
   import Dropdown from "./lib/Dropdown.svelte";
-  import Modal from "./lib/Modal.svelte";
+  import ShortcutModal from "./lib/ShortcutModal.svelte";
   import ThemeModal from "./lib/ThemeModal.svelte";
   import jquery from "jquery";
 
@@ -148,7 +148,7 @@
   button.reset(on:click="{resetHandler}") {resetText}
 
   +if("modal")
-    Modal(
+    ShortcutModal(
       on:submit="{shortcutAddHandler}"
       on:cancel!="{() => modal = !modal}"
     )
@@ -156,7 +156,6 @@
   +if("themeModal")
     ThemeModal(
       on:submit!="{themeHandler}"
-      on:cancel!="{() => themeModal = !themeModal}"
       bind:theme="{customTheme}"
     )
 
