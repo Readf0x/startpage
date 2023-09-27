@@ -1,6 +1,7 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, afterUpdate } from 'svelte';
   const dispatch = createEventDispatcher();
+  import jquery from "jquery";
 
   export let type = "font";
   export let icon = "";

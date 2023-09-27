@@ -1,59 +1,53 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-  import { variants } from "@catppuccin/palette";
   const dispatch = createEventDispatcher();
 
-  export let custom = {
-    rosewater: { hex: variants.latte.rosewater.hex },
-    flamingo: { hex: variants.latte.flamingo.hex },
-    pink: { hex: variants.latte.pink.hex },
-    mauve: { hex: variants.latte.mauve.hex },
-    red: { hex: variants.latte.red.hex },
-    maroon: { hex: variants.latte.maroon.hex },
-    peach: { hex: variants.latte.peach.hex },
-    yellow: { hex: variants.latte.yellow.hex },
-    green: { hex: variants.latte.green.hex },
-    teal: { hex: variants.latte.teal.hex },
-    sky: { hex: variants.latte.sky.hex },
-    sapphire: { hex: variants.latte.sapphire.hex },
-    blue: { hex: variants.latte.blue.hex },
-    lavender: { hex: variants.latte.lavender.hex },
-    text: { hex: variants.latte.text.hex },
-    subtext1: { hex: variants.latte.subtext1.hex },
-    subtext0: { hex: variants.latte.subtext0.hex },
-    overlay2: { hex: variants.latte.overlay2.hex },
-    overlay1: { hex: variants.latte.overlay1.hex },
-    overlay0: { hex: variants.latte.overlay0.hex },
-    surface2: { hex: variants.latte.surface2.hex },
-    surface1: { hex: variants.latte.surface1.hex },
-    surface0: { hex: variants.latte.surface0.hex },
-    base: { hex: "#ffe0ee" },
-    mantle: { hex: "#ffeffe" },
-    crust: { hex: "#ffaed3" }
-  };
+  export let theme = {};
 
   function keyPressHandler(ev) {
-    if(ev.key == "Escape") dispatch("cancel");
+    if(ev.key == "Escape") dispatch("submit");
   }
 </script>
 
 <template lang="pug">
   .modal-cover
   .modal-outer
-    .modal-inner
-      h1.title Custom Theme:
-      +each("Object.entries(custom) as [color, value]")
-        p {color}: {value.hex}
-      button#submit(on:click!="{() => dispatch('submit')}") Done
-      button#cancel(on:click!="{() => dispatch('cancel')}") Cancel
+    h1.title Custom Theme:
+    .modal-inner-wrapper
+      .modal-inner
+        h3 Dark:
+        +each("Object.entries(theme.dark) as [color]")
+          label(for="{color}") {color}
+          input(
+            name="{color}"
+            placeholder="Hex value"
+            bind:value="{theme.dark[color]}"
+            style:border-bottom="1px solid {theme.dark[color]}"
+          )
+      .modal-inner
+        h3 Light:
+        +each("Object.entries(theme.light) as [color]")
+          label(for="{color}") {color}
+          input(
+            name="{color}"
+            placeholder="Hex value"
+            bind:value="{theme.light[color]}"
+            style:border-bottom="1px solid {theme.light[color]}"
+          )
+    button#submit(on:click!="{() => dispatch('submit')}") Done
+    span.warning #[b Warning:] jank
+    //- Insert button here if neccessary
 </template>
+<!-- Button:
+  button#cancel(on:click!="{() => dispatch('cancel')}") Cancel 
+-->
 
 <svelte:window on:keydown={keyPressHandler} />
 
 <style lang="scss">
   .modal-cover {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 0;
@@ -71,68 +65,66 @@
       border-radius: 20px;
       z-index: 5;
       overflow: hidden;
+      padding: 20px;
     }
     &-inner {
       min-width: 16vw;
       max-height: 66vh;
       overflow-y: auto;
-      padding: 20px;
-      .title {
-        margin-top: 0;
+      padding-right: 10px;
+      margin-bottom: 10px;
+      &:not(:first-child) {
+        margin-left: 20px;
       }
-      input {
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-        background: var(--mantle);
-        border: none;
-        padding: 4px 6px;
-        border-radius: 5px;
-        outline: none;
-        color: var(--text);
-        &:not(:last-child) {
-          margin-bottom: 10px;
-        }
-        &::placeholder {
-          color: var(--subtext0);
-        }
+      &-wrapper {
+        display: flex;
       }
-      select {
-        width: 100%;
-        margin-bottom: 10px;
-        background: var(--mantle);
-        color: var(--text);
-        border: none;
-        padding: 4px 6px;
-        border-radius: 5px;
-        outline: none;
-      }
-      p {
-        margin: 0 3px 10px;
-        code {
-          background: var(--overlay0);
-          border-radius: 5px;
-          padding: 0 2px;
-        }
-        &.info {
-          font-size: 12px;
-        }
-      }
-      button {
-        background: var(--mantle);
-        border: none;
-        box-sizing: content-box;
-        padding: 4px 6px;
-        border-radius: 5px;
-        &#submit {
-          float: right;
-          color: var(--green);
-        }
-        cursor: pointer;
-        &:hover {
-          background: var(--surface0);
-        }
-      }
+    }
+  }
+  .title {
+    margin-top: 0;
+  }
+  .warning {
+    font-size: 12px;
+    b {
+      color: var(--red);
+    }
+  }
+  h3 {
+    margin: 0 0 5px;
+  }
+  input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--mantle);
+    border: none;
+    padding: 4px 6px;
+    border-radius: 5px;
+    outline: none;
+    color: var(--text);
+    font-family: monospace;
+    font-size: 14px;
+    &::placeholder {
+      color: var(--subtext0);
+    }
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+  button {
+    background: var(--mantle);
+    border: none;
+    box-sizing: content-box;
+    padding: 4px 6px;
+    border-radius: 5px;
+    &#submit {
+      float: right;
+      color: var(--green);
+    }
+    cursor: pointer;
+    &:hover {
+      background: var(--surface0);
     }
   }
 </style>

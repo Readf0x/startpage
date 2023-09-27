@@ -1,60 +1,63 @@
 <script>
   import jquery from "jquery";
-  import { onMount } from "svelte";
-  import { variants } from "@catppuccin/palette";
-  // const { setTimeout } = require('timers/promises');
+  import { onMount, afterUpdate } from "svelte";
+
+  export let customTheme;
 
   let checked =
     localStorage.getItem("theme") != null
       ? localStorage.getItem("theme") == "true"
       : window.matchMedia("(prefers-color-scheme: light)").matches;
 
-  let theme = variants.mocha;
+  let theme = customTheme.dark;
 
   function themeMatch() {
     if (checked) {
       document.body.classList.add("light");
-      theme = variants.latte;
+      theme = customTheme.light;
       // @ts-ignore
       localStorage.setItem("theme", true);
     } else {
       document.body.classList.remove("light");
-      theme = variants.mocha;
+      theme = customTheme.dark;
       // @ts-ignore
       localStorage.setItem("theme", false);
     }
   }
 
   $: jquery(":root").css({
-    "--rosewater": theme.rosewater.hex,
-    "--flamingo": theme.flamingo.hex,
-    "--pink": theme.pink.hex,
-    "--mauve": theme.mauve.hex,
-    "--red": theme.red.hex,
-    "--maroon": theme.maroon.hex,
-    "--peach": theme.peach.hex,
-    "--yellow": theme.yellow.hex,
-    "--green": theme.green.hex,
-    "--teal": theme.teal.hex,
-    "--sky": theme.sky.hex,
-    "--sapphire": theme.sapphire.hex,
-    "--blue": theme.blue.hex,
-    "--lavender": theme.lavender.hex,
-    "--text": theme.text.hex,
-    "--subtext1": theme.subtext1.hex,
-    "--subtext0": theme.subtext0.hex,
-    "--overlay2": theme.overlay2.hex,
-    "--overlay1": theme.overlay1.hex,
-    "--overlay0": theme.overlay0.hex,
-    "--surface2": theme.surface2.hex,
-    "--surface1": theme.surface1.hex,
-    "--surface0": theme.surface0.hex,
-    "--base": theme.base.hex,
-    "--mantle": theme.mantle.hex,
-    "--crust": theme.crust.hex
+    "--rosewater": theme.rosewater,
+    "--flamingo": theme.flamingo,
+    "--pink": theme.pink,
+    "--mauve": theme.mauve,
+    "--red": theme.red,
+    "--maroon": theme.maroon,
+    "--peach": theme.peach,
+    "--yellow": theme.yellow,
+    "--green": theme.green,
+    "--teal": theme.teal,
+    "--sky": theme.sky,
+    "--sapphire": theme.sapphire,
+    "--blue": theme.blue,
+    "--lavender": theme.lavender,
+    "--text": theme.text,
+    "--subtext1": theme.subtext1,
+    "--subtext0": theme.subtext0,
+    "--overlay2": theme.overlay2,
+    "--overlay1": theme.overlay1,
+    "--overlay0": theme.overlay0,
+    "--surface2": theme.surface2,
+    "--surface1": theme.surface1,
+    "--surface0": theme.surface0,
+    "--base": theme.base,
+    "--mantle": theme.mantle,
+    "--crust": theme.crust
   });
 
   onMount(() => {
+    themeMatch();
+  });
+  afterUpdate(() => {
     themeMatch();
   });
 </script>
@@ -87,7 +90,7 @@
           -ms-transform: translateX(36px);
           transform: translateX(36px);
           background: var(--surface0);
-          outline: 1px solid var(--text);
+          outline: 1px solid var(--overlay2);
         }
         .bi {
           &-moon-stars {

@@ -1,7 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { defaultShortcuts, sleep } from "./lib/default";
-  import { variants } from "@catppuccin/palette";
+  import { defaultShortcuts, defaultTheme, sleep } from "./lib/default";
   import Sortable from "sortablejs";
   import Time from "./lib/Time.svelte";
   import Weather from "./lib/Weather.svelte";
@@ -37,7 +36,15 @@
   ];
   $: order = Array.from(Array(shortcuts.length).keys());
 
-  let custom;
+  let customTheme = 
+    localStorage.getItem("customtheme") != null
+      ? JSON.parse(localStorage.getItem("customtheme"))
+      : defaultTheme();
+
+  function themeHandler() {
+    themeModal = !themeModal;
+    localStorage.setItem("customtheme", JSON.stringify(customTheme));
+  }
 
   async function shortcutRemoveHandler(ev) {
     shortcuts = shortcuts.toSpliced(ev.detail, 1);
@@ -101,6 +108,10 @@
         console.log(sortable.option("disabled"));
       },
     });
+    customTheme = 
+      localStorage.getItem("customtheme") != null
+        ? JSON.parse(localStorage.getItem("customtheme"))
+        : defaultTheme();
     await new Promise((r) => setTimeout(r, 250));
     jquery(".no-transition").removeClass("no-transition");
   });
@@ -129,7 +140,9 @@
   Weather
 
   .theme-wrapper
-    ThemeSwitch
+    ThemeSwitch(
+      bind:customTheme
+    )
     button.openThemeEditor(on:click!="{() => themeModal = !themeModal}") Edit #[i.bi.bi-gear]
 
   button.reset(on:click="{resetHandler}") {resetText}
@@ -142,10 +155,12 @@
 
   +if("themeModal")
     ThemeModal(
-      on:submit!="{() => themeModal = !themeModal}"
+      on:submit!="{themeHandler}"
       on:cancel!="{() => themeModal = !themeModal}"
+      bind:theme="{customTheme}"
     )
-    
+
+  p#testing
 </template>
 
 <style lang="scss">
@@ -215,7 +230,9 @@
   }
   .theme-wrapper {
     width: fit-content;
-    float: right;
+    position: absolute;
+    top: 5px;
+    right: 5px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -238,5 +255,6 @@
       background: var(--surface0);
       cursor: pointer;
     }
+    outline: none;
   }
 </style>

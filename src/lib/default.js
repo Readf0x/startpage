@@ -1,3 +1,5 @@
+import { variants } from "@catppuccin/palette";
+
 export function defaultApi() {
   return JSON.parse(
     '{\
@@ -561,6 +563,71 @@ export function defaultShortcuts() {
     ])
   );
   return JSON.parse(localStorage.getItem("shortcuts"));
+}
+
+export function defaultTheme() {
+  localStorage.setItem(
+    "customtheme",
+    JSON.stringify({
+      dark: {
+        rosewater: variants.mocha.rosewater.hex,
+        flamingo: variants.mocha.flamingo.hex,
+        pink: variants.mocha.pink.hex,
+        mauve: variants.mocha.mauve.hex,
+        red: variants.mocha.red.hex,
+        maroon: variants.mocha.maroon.hex,
+        peach: variants.mocha.peach.hex,
+        yellow: variants.mocha.yellow.hex,
+        green: variants.mocha.green.hex,
+        teal: variants.mocha.teal.hex,
+        sky: variants.mocha.sky.hex,
+        sapphire: variants.mocha.sapphire.hex,
+        blue: variants.mocha.blue.hex,
+        lavender: variants.mocha.lavender.hex,
+        text: variants.mocha.text.hex,
+        subtext1: variants.mocha.subtext1.hex,
+        subtext0: variants.mocha.subtext0.hex,
+        overlay2: variants.mocha.overlay2.hex,
+        overlay1: variants.mocha.overlay1.hex,
+        overlay0: variants.mocha.overlay0.hex,
+        surface2: variants.mocha.surface2.hex,
+        surface1: variants.mocha.surface1.hex,
+        surface0: variants.mocha.surface0.hex,
+        base: variants.mocha.base.hex,
+        mantle: variants.mocha.mantle.hex,
+        crust: variants.mocha.crust.hex,
+      },
+      light: {
+        rosewater: variants.latte.rosewater.hex,
+        flamingo: variants.latte.flamingo.hex,
+        pink: variants.latte.pink.hex,
+        mauve: variants.latte.mauve.hex,
+        red: variants.latte.red.hex,
+        maroon: variants.latte.maroon.hex,
+        peach: variants.latte.peach.hex,
+        yellow: variants.latte.yellow.hex,
+        green: variants.latte.green.hex,
+        teal: variants.latte.teal.hex,
+        sky: variants.latte.sky.hex,
+        sapphire: variants.latte.sapphire.hex,
+        blue: variants.latte.blue.hex,
+        lavender: variants.latte.lavender.hex,
+        text: variants.latte.text.hex,
+        subtext1: variants.latte.subtext1.hex,
+        subtext0: variants.latte.subtext0.hex,
+        overlay2: variants.latte.overlay2.hex,
+        overlay1: variants.latte.overlay1.hex,
+        overlay0: variants.latte.overlay0.hex,
+        surface2: variants.latte.surface2.hex,
+        surface1: variants.latte.surface1.hex,
+        surface0: variants.latte.surface0.hex,
+        base: variants.latte.base.hex,
+        mantle: variants.latte.mantle.hex,
+        crust: variants.latte.crust.hex,
+      },
+    })
+  );
+  return JSON.parse(localStorage.getItem("customtheme"));
 }
 
 export function sleep(ms) {
